@@ -15,9 +15,17 @@ export const {
       text: "#fff",
       black: "#000",
       title: "#E0CD9D",
+
+      details: "#AAA494",
+
+      background: "#1A1A15",
+      backgroundCard: "#12120D",
+
+      inputColor: "#3D3A2E",
     },
 
     fontSizes: {
+      sm: "1rem",
       md: "1.125rem",
       lg: "1.25rem",
       xl: "1.5rem",

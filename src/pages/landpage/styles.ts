@@ -33,7 +33,7 @@ export const ContainerLink = styled("div", {
   a: {
     color: "$title",
     textDecoration: "none",
-    fontSize: "$lg",
+    fontSize: "$md",
     textAlign: "center",
   },
 

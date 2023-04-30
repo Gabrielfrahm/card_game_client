@@ -2,17 +2,15 @@ import Image from "next/image";
 import { Container, ContainerLink, Content, ImageContainer } from "./styles";
 import logoImage from "../../assets/logo.png";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import Link from "next/link";
 
 export default function LandPage() {
   const [size, setSize] = useState({ width: 0, height: 0 });
-
   useEffect(() => {
     function attTamanho() {
       setSize({ width: window.innerWidth, height: window.innerHeight });
     }
-
     attTamanho();
   }, []);
 
@@ -32,7 +30,7 @@ export default function LandPage() {
           />
         </ImageContainer>
         <ContainerLink>
-          <Link href={"#"} placeholder="LOGIN">
+          <Link href={"/login"} placeholder="LOGIN">
             LOGIN
           </Link>
         </ContainerLink>
@@ -41,9 +39,6 @@ export default function LandPage() {
             SIGN UP
           </Link>
         </ContainerLink>
-        <audio autoPlay id="player">
-          <source src="/opening.mp3" type="audio/mp3" />
-        </audio>
       </Content>
     </Container>
   );
