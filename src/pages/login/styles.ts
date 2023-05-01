@@ -87,3 +87,7 @@ export const Hr = styled("hr", {
     width: "18rem",
   },
 });
+
+export const ButtonContainer = styled("div", {
+  marginTop: "2rem",
+});

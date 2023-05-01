@@ -1,19 +1,23 @@
-import { EyeClosed, Eye } from "phosphor-react";
+import { EyeClosed, Eye, Warning } from "phosphor-react";
+import { InputHTMLAttributes, useState } from "react";
+import * as Tooltip from "@radix-ui/react-tooltip";
 import {
   Container,
   ContainerTextInput,
   Text,
+  TextError,
   TextInput,
+  TooltipContainer,
+  TooltipIcon,
   WrapperPassword,
 } from "./styles";
-import { InputHTMLAttributes, useRef, useState } from "react";
-import { useForm } from "react-hook-form";
-
+import TooltipCustom from "./tooltip";
 interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   labelName: string;
   context: boolean;
   name: string;
   register: any;
+  errors?: string;
 }
 
 export default function Input({
@@ -21,6 +25,7 @@ export default function Input({
   context,
   name,
   register,
+  errors,
   ...rest
 }: InputProps) {
   const [showPassword, setShowPassword] = useState<boolean>();
@@ -32,7 +37,10 @@ export default function Input({
   return (
     <Container>
       <label>
-        <Text>{labelName}:</Text>
+        <Text>
+          {labelName}:{errors && <TooltipCustom error={errors} />}
+        </Text>
+
         <ContainerTextInput>
           {name === "password" ? (
             <WrapperPassword>
@@ -67,12 +75,14 @@ export default function Input({
               )}
             </WrapperPassword>
           ) : (
-            <TextInput
-              type="text"
-              {...register(name)}
-              {...rest}
-              content={context}
-            />
+            <>
+              <TextInput
+                type="text"
+                {...register(name)}
+                {...rest}
+                content={context}
+              />
+            </>
           )}
         </ContainerTextInput>
       </label>
