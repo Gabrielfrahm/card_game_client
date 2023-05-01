@@ -1,5 +1,6 @@
 import { styled } from "@stitches/react";
-
+import borderImg2 from "../../../assets/border2.png";
+import borderImg from "../../../assets/border.png";
 export const Container = styled("div", {});
 
 export const Text = styled("p", {
@@ -14,27 +15,40 @@ export const ContainerTextInput = styled("div", {
   justifyContent: "center",
   alignItems: "center",
   width: "15rem",
-  height: "2rem",
+  height: "1.5rem",
   backgroundColor: "$inputColor",
-  borderRadius: "5px",
 });
 
 export const TextInput = styled("input", {
+  height: "1.5rem",
   width: "10.5rem",
-  height: "1.50rem",
   color: "$title",
   fontFamily: "monospace",
   backgroundColor: "$inputColor",
-  border: "transparent",
-  borderRadius: "5px",
+  border: "2px solid transparent",
+  position: "relative",
+  borderImage: `url(${borderImg.src})  16 fill / 8px  `,
+
   padding: "5px",
+
+  "&:focus": {
+    boxShadow: "0 0 10px 5px rgba(170, 164, 148, 1)",
+    backgroundColor: "$inputColor",
+    borderImage: `url(${borderImg2.src})  16 fill / 8px  `,
+  },
+
+  "&:hover": {
+    boxShadow: "0 0 10px 5px rgba(170, 164, 148, 1)",
+    backgroundColor: "$inputColor",
+    borderImage: `url(${borderImg2.src})  16 fill / 8px  `,
+  },
+
   variants: {
     content: {
       true: {
-        height: "2.5rem",
-        backgroundColor: "transparent",
-        borderRight: "2px solid $details",
-        borderLeft: "2px solid $details",
+        height: "1.6rem",
+        backgroundColor: "$inputColor",
+        borderImage: `url(${borderImg2.src})  16 fill / 8px  `,
       },
     },
   },

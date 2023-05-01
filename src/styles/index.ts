@@ -21,7 +21,7 @@ export const {
       background: "#1A1A15",
       backgroundCard: "#12120D",
 
-      inputColor: "#3D3A2E",
+      inputColor: "#191813",
     },
 
     fontSizes: {

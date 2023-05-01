@@ -7,11 +7,13 @@ import {
   Content,
   FormContainer,
   Form,
+  Hr,
+  WrapperHeader,
 } from "./styles";
 
 import { useRouter } from "next/router";
 import { useForm } from "react-hook-form";
-import { useEffect } from "react";
+import border from "../../assets/border.png";
 
 export default function Login() {
   const router = useRouter();
@@ -21,7 +23,7 @@ export default function Login() {
     handleSubmit,
     formState: { errors },
   } = useForm({});
-  console.log();
+
   return (
     <Container>
       <ContainerImage>
@@ -39,6 +41,10 @@ export default function Login() {
         />
       </ContainerImage>
       <Content>
+        <WrapperHeader>
+          <h1>Login</h1>
+          <Hr />
+        </WrapperHeader>
         <FormContainer>
           <Form>
             <Input

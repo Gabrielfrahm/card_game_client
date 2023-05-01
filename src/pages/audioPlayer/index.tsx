@@ -11,7 +11,7 @@ export default function AudioPlayer() {
         audioRef.current.pause();
       } else {
         audioRef.current.play();
-        audioRef.current.volume = 0.1;
+        audioRef.current.volume = 0.2;
       }
       setAudioEnabled(!audioEnabled);
     }
