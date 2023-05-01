@@ -16,10 +16,12 @@ import {
   WrapperHeader,
   ButtonContainer,
 } from "./styles";
-import Http from "@/@shared/lib/http";
+import { getAPIClient } from "@/@shared/lib/http";
 import { toastNotification } from "../components/toast";
 import { IError } from "@/@shared/lib/http.error";
 import { translateErrors } from "@/@shared/help/translation";
+import { AuthContext } from "@/context/authContext";
+import { useContext } from "react";
 
 const loginFormSchema = z.object({
   email: z
@@ -35,6 +37,7 @@ type LoginFormData = z.infer<typeof loginFormSchema>;
 
 export default function Login() {
   const router = useRouter();
+  const { signIn } = useContext(AuthContext);
 
   const {
     register,
@@ -44,22 +47,7 @@ export default function Login() {
   } = useForm<LoginFormData>({ resolver: zodResolver(loginFormSchema) });
 
   const onSubmit = async (data: LoginFormData) => {
-    try {
-      await Http.post(`/authenticate`, {
-        email: data.email,
-        password: data.password,
-      });
-      toastNotification({
-        type: "success",
-        message: "sucesso",
-      });
-    } catch (e) {
-      const error = e as IError;
-      toastNotification({
-        type: "error",
-        message: translateErrors(error.response.data.message),
-      });
-    }
+    await signIn(data);
   };
 
   return (

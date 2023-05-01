@@ -1,26 +1,20 @@
-import axios, { AxiosError } from "axios";
+import axios from "axios";
+import { parseCookies } from "nookies";
 
-const Http = axios.create({
-  baseURL: process.env.NEXT_PUBLIC_API_URL,
-});
+export function getAPIClient(ctx?: any) {
+  const { "eldencard.token": token } = parseCookies(ctx);
 
-Http.interceptors.request.use(
-  // (config) => {
-  //   const response = getDataLocalStorage<IGetLocalStorage>(KEY);
-  //   const { headers } = config;
+  const api = axios.create({
+    baseURL: process.env.NEXT_PUBLIC_API_URL,
+  });
 
-  //   if (response.token) {
-  //     headers.Authorization = `Bearer ${response.token.token}`;
-  //   }
-
-  //   headers["Content-Type"] = "application/json";
-  //   headers.Accept = "application/json";
-
-  //   return config;
-  // },
-  async (error) => {
+  api.interceptors.request.use(async (error) => {
     return error;
-  }
-);
+  });
 
-export default Http;
+  if (token) {
+    api.defaults.headers["Authorization"] = `Bearer ${token}`;
+  }
+
+  return api;
+}
