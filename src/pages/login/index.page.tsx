@@ -16,6 +16,10 @@ import {
   WrapperHeader,
   ButtonContainer,
 } from "./styles";
+import Http from "@/@shared/lib/http";
+import { toastNotification } from "../components/toast";
+import { IError } from "@/@shared/lib/http.error";
+import { translateErrors } from "@/@shared/help/translation";
 
 const loginFormSchema = z.object({
   email: z
@@ -31,6 +35,7 @@ type LoginFormData = z.infer<typeof loginFormSchema>;
 
 export default function Login() {
   const router = useRouter();
+
   const {
     register,
     watch,
@@ -38,8 +43,23 @@ export default function Login() {
     formState: { errors, isSubmitting },
   } = useForm<LoginFormData>({ resolver: zodResolver(loginFormSchema) });
 
-  const onSubmit = (data: any) => {
-    console.log(data);
+  const onSubmit = async (data: LoginFormData) => {
+    try {
+      await Http.post(`/authenticate`, {
+        email: data.email,
+        password: data.password,
+      });
+      toastNotification({
+        type: "success",
+        message: "sucesso",
+      });
+    } catch (e) {
+      const error = e as IError;
+      toastNotification({
+        type: "error",
+        message: translateErrors(error.response.data.message),
+      });
+    }
   };
 
   return (
