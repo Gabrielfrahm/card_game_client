@@ -2,7 +2,7 @@ import { TUser } from "@/@shared/interfaces";
 import { TRequest } from "@/@shared/services/authService/contracts";
 import { authServices } from "@/@shared/services";
 import { createContext, useEffect, useState } from "react";
-import { setCookie } from "nookies";
+import { destroyCookie, parseCookies, setCookie } from "nookies";
 import { api } from "@/@shared/lib/api";
 import { toastNotification } from "@/pages/components/toast";
 import { IError } from "@/@shared/lib/http.error";
@@ -13,6 +13,7 @@ type AuthContextType = {
   isAuthenticated: boolean;
   user: TUser;
   signIn: (data: TRequest) => Promise<void>;
+  signOut: () => Promise<void>;
 };
 
 export const AuthContext = createContext({} as AuthContextType);
@@ -22,7 +23,11 @@ export const AuthProvider = ({ children }: any) => {
   const { login } = authServices();
   const isAuthenticated = !!user;
 
-  useEffect(() => {});
+  useEffect(() => {
+    const { ["eldencard"]: data } = parseCookies();
+    const { user } = JSON.parse(data);
+    setUser(user);
+  }, []);
 
   async function signIn({ email, password }: TRequest) {
     try {
@@ -54,8 +59,13 @@ export const AuthProvider = ({ children }: any) => {
     }
   }
 
+  async function signOut() {
+    destroyCookie(null, "eldencard");
+    Router.push("/login");
+  }
+
   return (
-    <AuthContext.Provider value={{ user, isAuthenticated, signIn }}>
+    <AuthContext.Provider value={{ user, isAuthenticated, signIn, signOut }}>
       {children}
     </AuthContext.Provider>
   );

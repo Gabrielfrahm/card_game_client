@@ -2,7 +2,12 @@ import axios from "axios";
 import { parseCookies } from "nookies";
 
 export function getAPIClient(ctx?: any) {
-  const { "eldencard.token": token } = parseCookies(ctx);
+  const { ["eldencard"]: data } = parseCookies(ctx);
+  let verifyToken: string = "";
+  if (data) {
+    const { token } = JSON.parse(data);
+    verifyToken = token;
+  }
 
   const api = axios.create({
     baseURL: process.env.NEXT_PUBLIC_API_URL,
@@ -12,8 +17,8 @@ export function getAPIClient(ctx?: any) {
     return error;
   });
 
-  if (token) {
-    api.defaults.headers["Authorization"] = `Bearer ${token}`;
+  if (verifyToken) {
+    api.defaults.headers["Authorization"] = `Bearer ${verifyToken}`;
   }
 
   return api;

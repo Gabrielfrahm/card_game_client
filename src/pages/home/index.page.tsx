@@ -1,30 +1,27 @@
-import { getAPIClient } from "@/@shared/lib/http";
 import { GetServerSideProps } from "next";
-import { parseCookies } from "nookies";
+
+import Header from "../components/header";
+import { Container, Content } from "./styles";
+import privateRoute from "@/@shared/help/private.route";
 
 export default function Home() {
   return (
-    <div>
-      <h1>dale</h1>
-    </div>
+    <>
+      <Header />
+      <Container>
+        <Content>
+          <h1>dale</h1>
+        </Content>
+      </Container>
+    </>
   );
 }
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
-  // const apiClient = getAPIClient(ctx);
-  const { ["eldencard"]: data } = parseCookies(ctx);
-  const { token } = JSON.parse(data);
-
-  if (!token) {
-    return {
-      redirect: {
-        destination: "/login",
-        permanent: false,
-      },
-    };
+  const checkAuth = privateRoute(ctx, true);
+  if (checkAuth) {
+    return checkAuth;
   }
-
-  // await apiClient.get("/login");
 
   return {
     props: {},

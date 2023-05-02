@@ -22,6 +22,8 @@ import { IError } from "@/@shared/lib/http.error";
 import { translateErrors } from "@/@shared/help/translation";
 import { AuthContext } from "@/context/authContext";
 import { useContext } from "react";
+import { GetServerSideProps } from "next";
+import privateRoute from "@/@shared/help/private.route";
 
 const loginFormSchema = z.object({
   email: z
@@ -96,3 +98,14 @@ export default function Login() {
     </Container>
   );
 }
+
+export const getServerSideProps: GetServerSideProps = async (ctx) => {
+  const checkAuth = privateRoute(ctx, false);
+  if (checkAuth) {
+    return checkAuth;
+  }
+
+  return {
+    props: {},
+  };
+};
