@@ -21,17 +21,19 @@ export const AuthContext = createContext({} as AuthContextType);
 export const AuthProvider = ({ children }: any) => {
   const [user, setUser] = useState<TUser>({} as TUser);
   const { login } = authServices();
-  const isAuthenticated = !!user;
+  const isAuthenticated = !!user.id;
 
   useEffect(() => {
     const { ["eldencard"]: data } = parseCookies();
-    const { user } = JSON.parse(data);
-    setUser(user);
+    if (data) {
+      const { user } = JSON.parse(data);
+      setUser(user);
+    }
   }, []);
 
   async function signIn({ email, password }: TRequest) {
     try {
-      const { data, status } = await login({
+      const { data } = await login({
         email,
         password,
       });
@@ -60,6 +62,7 @@ export const AuthProvider = ({ children }: any) => {
   }
 
   async function signOut() {
+    setUser({} as TUser);
     destroyCookie(null, "eldencard");
     Router.push("/login");
   }

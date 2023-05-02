@@ -35,7 +35,7 @@ export default function LandPage() {
           </Link>
         </ContainerLink>
         <ContainerLink>
-          <Link href={"#"} placeholder="LOGIN">
+          <Link href={"/signup"} placeholder="LOGIN">
             SIGN UP
           </Link>
         </ContainerLink>
