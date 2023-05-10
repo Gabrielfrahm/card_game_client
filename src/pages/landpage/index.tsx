@@ -4,6 +4,8 @@ import logoImage from "../../assets/logo.png";
 
 import { useEffect, useState, useRef } from "react";
 import Link from "next/link";
+import { GetServerSideProps } from "next";
+import privateRoute from "@/@shared/help/private.route";
 
 export default function LandPage() {
   const [size, setSize] = useState({ width: 0, height: 0 });
@@ -43,3 +45,14 @@ export default function LandPage() {
     </Container>
   );
 }
+
+export const getServerSideProps: GetServerSideProps = async (ctx) => {
+  const checkAuth = privateRoute(ctx, false);
+  if (checkAuth) {
+    return checkAuth;
+  }
+
+  return {
+    props: {},
+  };
+};
