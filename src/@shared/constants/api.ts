@@ -5,4 +5,7 @@ export const urls = {
   user: {
     create: (): string => "/users",
   },
+  card: {
+    list: (): string => "/cards",
+  },
 };

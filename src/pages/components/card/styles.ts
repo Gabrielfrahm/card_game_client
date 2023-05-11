@@ -99,6 +99,7 @@ export const Title = styled("h2", {
 
 export const Description = styled("p", {
   fontSize: "$ssm",
+  maxWidth: "200px",
   fontFamily: "monospace",
   color: "$text",
   textAlign: "center",
