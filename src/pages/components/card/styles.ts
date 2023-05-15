@@ -5,41 +5,78 @@ export const Container = styled("div", {
   height: "420px",
   width: "230px",
   backgroundColor: "#89826F",
-  borderRadius: "20px",
+  borderRadius: "25px",
   border: "4px solid #D3C39A",
   position: "relative",
-  margin: "10px",
+  margin: "5px",
+
   "&:hover": {
     boxShadow: "0 0 10px 5px rgba(170, 164, 148, 1)",
     cursor: "pointer",
+  },
+
+  "@media(max-width: 1750px)": {
+    height: "350px",
+    width: "200px",
+  },
+
+  "@media(max-width: 1440px)": {
+    height: "280px",
+    width: "180px",
   },
 });
 
 export const ContainerBorderImage = styled("div", {
   position: "absolute",
   zIndex: 1,
-  width: "30px",
-  height: "60px",
+  width: "20px",
+  height: "50px",
   display: "flex",
   justifyContent: "center",
   alignItems: "center",
+
+  "@media(max-width: 1750px)": {
+    width: "15px",
+    height: "45px",
+  },
+
+  "@media(max-width: 1440px)": {
+    width: "5px",
+    height: "35px",
+  },
 });
 
 export const Atk = styled("h1", {
   color: "$text",
   fontSize: "$lg",
+
+  "@media(max-width: 1750px)": {
+    fontSize: "$md",
+  },
+
+  "@media(max-width: 1440px)": {
+    fontSize: "$sm",
+  },
 });
 
 export const BorderImg = styled(Image, {
   position: "absolute",
-  top: "-7px",
-  left: "-18px",
+  top: "-14px",
+  left: "-25px",
   zIndex: -1,
+
+  "@media(max-width: 1440px)": {
+    width: "100px",
+    height: "100px",
+  },
 });
 
 export const Content = styled("div", {});
 
 export const MainImage = styled(Image, {
+  position: "absolute",
+  top: "0",
+  left: "0",
   width: "100%",
   height: "100%",
   zIndex: 0,
@@ -51,6 +88,11 @@ export const CategoryImageSword = styled(Image, {
   height: "50px",
   top: "100px",
   left: "-12px",
+  zIndex: 1,
+
+  "@media(max-width: 1440px)": {
+    display: "none",
+  },
 });
 
 export const CategoryImageMage = styled(Image, {
@@ -59,6 +101,11 @@ export const CategoryImageMage = styled(Image, {
   height: "50px",
   top: "100px",
   left: "5px",
+  zIndex: 1,
+
+  "@media(max-width: 1440px)": {
+    display: "none",
+  },
 });
 
 export const CategoryImageRange = styled(Image, {
@@ -67,6 +114,11 @@ export const CategoryImageRange = styled(Image, {
   height: "55px",
   top: "100px",
   left: "-2px",
+  zIndex: 1,
+
+  "@media(max-width: 1440px)": {
+    display: "none",
+  },
 });
 
 export const EffectImage = styled(Image, {
@@ -75,11 +127,17 @@ export const EffectImage = styled(Image, {
   height: "47px",
   top: "172px",
   left: "5px",
+  zIndex: 1,
+
+  "@media(max-width: 1440px)": {
+    display: "none",
+  },
 });
 
 export const ContentDescription = styled("div", {
   position: "absolute",
-  bottom: "-1px",
+  bottom: "-5px",
+  left: "-5px",
   width: "222px",
   height: "66px",
   backgroundColor: "#89826F",
@@ -90,11 +148,26 @@ export const ContentDescription = styled("div", {
   alignItems: "center",
   justifyContent: "center",
   flexDirection: "column",
+
+  "@media(max-width: 1750px)": {
+    width: "193px",
+  },
+
+  "@media(max-width: 1440px)": {
+    width: "173px",
+  },
 });
 
 export const Title = styled("h2", {
   fontSize: "$ssm",
   color: "$title",
+
+  "@media(max-width: 1750px)": {
+    maxWidth: "100px",
+    whiteSpace: "nowrap",
+    overflow: "hidden",
+    textOverflow: "ellipsis",
+  },
 });
 
 export const Description = styled("p", {
@@ -103,4 +176,18 @@ export const Description = styled("p", {
   fontFamily: "monospace",
   color: "$text",
   textAlign: "center",
+
+  "@media(max-width: 1750px)": {
+    maxWidth: "150px",
+    whiteSpace: "break-spaces",
+    overflow: "hidden",
+    textOverflow: "ellipsis",
+  },
+
+  "@media(max-width: 1440px)": {
+    maxWidth: "150px",
+    whiteSpace: "nowrap",
+    overflow: "hidden",
+    textOverflow: "ellipsis",
+  },
 });

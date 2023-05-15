@@ -45,7 +45,11 @@ export function Card({
   main,
 }: typeProps) {
   return (
-    <Container>
+    <Container
+      style={{
+        marginLeft: "25px",
+      }}
+    >
       <ContainerBorderImage>
         <Atk>{atk}</Atk>
         {main ? (
@@ -154,8 +158,8 @@ export function Card({
           sizes="(max-width: 768px) 100vw,
            (max-width: 1200px) 50vw,
            33vw"
-          width={110}
-          height={110}
+          width={120}
+          height={120}
           quality={100}
           priority
           alt="border"
