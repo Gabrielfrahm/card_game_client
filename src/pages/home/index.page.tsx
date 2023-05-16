@@ -24,6 +24,7 @@ import Button from "../components/button";
 import Input from "../components/input";
 import InputHome from "./components/input";
 import { useEffect, useState } from "react";
+import TooltipCustom from "../components/card/tooltip";
 
 export default function Home() {
   const [cards, setCards] = useState<IListResponse<ICard>>();
@@ -36,7 +37,6 @@ export default function Home() {
     })();
   }, []);
 
-  console.log(cards);
   return (
     <>
       <Header />
@@ -65,10 +65,10 @@ export default function Home() {
                         description={card.description}
                         effect={card.effect}
                         title={card.name}
-                        main={true}
+                        main={card.main_card}
                         image={card.image_url}
                       />
-                      <Card
+                      {/* <Card
                         key={card.id}
                         atk={card.atk}
                         category={card.category}
@@ -77,13 +77,12 @@ export default function Home() {
                         title={card.name}
                         main={true}
                         image={card.image_url}
-                      />
+                      /> */}
                     </>
                   ))}
                 </CardWrapper>
               </CardContainer>
             </PanelCenter>
-            {/* <PanelRight>R</PanelRight> */}
           </Panel>
         </Content>
       </Container>

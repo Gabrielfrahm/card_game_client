@@ -1,5 +1,6 @@
 import { styled } from "@stitches/react";
 import Image from "next/image";
+import borderImg from "../../../assets/panel/border.png";
 
 export const Container = styled("div", {
   height: "420px",
@@ -10,9 +11,37 @@ export const Container = styled("div", {
   position: "relative",
   margin: "5px",
 
+  span: {
+    position: "absolute",
+    visibility: "hidden",
+    backgroundColor: "#000",
+    color: "#FFF",
+    padding: " 10px 10px",
+    width: "200px",
+    fontFamily: "monospace",
+    fontSize: "$md",
+
+    "@media(max-width: 768px)": {
+      width: "150px",
+    },
+  },
+
   "&:hover": {
     boxShadow: "0 0 10px 5px rgba(170, 164, 148, 1)",
     cursor: "pointer",
+
+    span: {
+      visibility: "visible",
+      opacity: "1",
+      bottom: "100px",
+      left: "50px",
+      zIndex: "999",
+      borderImage: `url(${borderImg.src})  8 fill / 8px`,
+
+      "@media(max-width: 768px)": {
+        left: "25px",
+      },
+    },
   },
 
   "@media(max-width: 1750px)": {
@@ -190,4 +219,13 @@ export const Description = styled("p", {
     overflow: "hidden",
     textOverflow: "ellipsis",
   },
+});
+
+export const TooltipContainer = styled("div", {
+  width: "18.75rem",
+  padding: "1.25rem",
+  borderImage: `url(${borderImg.src})  8 fill / 8px  `,
+  borderRadius: "5px",
+  backgroundColor: "$black",
+  textAlign: "center",
 });

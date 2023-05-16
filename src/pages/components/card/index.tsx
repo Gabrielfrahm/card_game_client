@@ -15,7 +15,6 @@ import {
 } from "./styles";
 import borderMainImg from "../../../assets/border-card-main-detail.png";
 import borderImg from "../../../assets/border-card.png";
-import test from "../../../assets/test.png";
 
 import effectPoisonImg from "../../../assets/effect/effect.png";
 import effectFreezeImg from "../../../assets/effect/freeze.png";
@@ -24,6 +23,10 @@ import effectBloodImg from "../../../assets/effect/blood.png";
 import sword from "../../../assets/category/sword.png";
 import mage from "../../../assets/category/mage.png";
 import range from "../../../assets/category/range.png";
+import TooltipCustom from "./tooltip";
+import { useState } from "react";
+import { MouseSimple } from "phosphor-react";
+import { theme } from "@/styles";
 
 export type typeProps = {
   atk: string;
@@ -44,131 +47,137 @@ export function Card({
   title,
   main,
 }: typeProps) {
+  document.addEventListener("contextmenu", (event) => event.preventDefault());
   return (
-    <Container
-      style={{
-        marginLeft: "25px",
-      }}
-    >
-      <ContainerBorderImage>
-        <Atk>{atk}</Atk>
-        {main ? (
-          <BorderImg
-            src={borderMainImg}
-            sizes="(max-width: 768px) 100vw,
+    <>
+      <Container
+        style={{
+          margin: "5px 30px 15px 0",
+        }}
+      >
+        <span onMouseDown={(e) => console.log(e.button)}>
+          {description} <MouseSimple color={`${theme.colors.title}`} />
+        </span>
+        <ContainerBorderImage>
+          <Atk>{atk}</Atk>
+          {main ? (
+            <BorderImg
+              src={borderMainImg}
+              sizes="(max-width: 768px) 100vw,
              (max-width: 1200px) 50vw,
              33vw"
+              width={120}
+              quality={100}
+              priority
+              alt="border"
+            />
+          ) : (
+            <BorderImg
+              src={borderImg}
+              sizes="(max-width: 768px) 100vw,
+           (max-width: 1200px) 50vw,
+           33vw"
+              width={70}
+              quality={100}
+              priority
+              alt="border"
+            />
+          )}
+        </ContainerBorderImage>
+        <Content>
+          {effect === "poison" && (
+            <EffectImage
+              src={effectPoisonImg}
+              sizes="(max-width: 768px) 100vw,
+           (max-width: 1200px) 50vw,
+           33vw"
+              width={110}
+              quality={100}
+              priority
+              alt="effect"
+            />
+          )}
+          {effect === "freeze" && (
+            <EffectImage
+              src={effectFreezeImg}
+              sizes="(max-width: 768px) 100vw,
+           (max-width: 1200px) 50vw,
+           33vw"
+              width={110}
+              quality={100}
+              priority
+              alt="effect"
+            />
+          )}
+          {effect === "blood" && (
+            <EffectImage
+              src={effectBloodImg}
+              sizes="(max-width: 768px) 100vw,
+           (max-width: 1200px) 50vw,
+           33vw"
+              width={110}
+              quality={100}
+              priority
+              alt="effect"
+            />
+          )}
+
+          {category === "sword" && (
+            <CategoryImageSword
+              src={sword}
+              sizes="(max-width: 768px) 100vw,
+           (max-width: 1200px) 50vw,
+           33vw"
+              width={110}
+              quality={100}
+              priority
+              alt="sword"
+            />
+          )}
+
+          {category === "mage" && (
+            <CategoryImageMage
+              src={mage}
+              sizes="(max-width: 768px) 100vw,
+           (max-width: 1200px) 50vw,
+           33vw"
+              width={110}
+              quality={100}
+              priority
+              alt="mage"
+            />
+          )}
+
+          {category === "range" && (
+            <CategoryImageRange
+              src={range}
+              sizes="(max-width: 768px) 100vw,
+           (max-width: 1200px) 50vw,
+           33vw"
+              width={110}
+              quality={100}
+              priority
+              alt="mage"
+            />
+          )}
+
+          <MainImage
+            src={image}
+            sizes="(max-width: 768px) 100vw,
+            (max-width: 1200px) 50vw,
+            33vw"
             width={120}
+            height={120}
             quality={100}
             priority
             alt="border"
           />
-        ) : (
-          <BorderImg
-            src={borderImg}
-            sizes="(max-width: 768px) 100vw,
-           (max-width: 1200px) 50vw,
-           33vw"
-            width={70}
-            quality={100}
-            priority
-            alt="border"
-          />
-        )}
-      </ContainerBorderImage>
-      <Content>
-        {effect === "poison" && (
-          <EffectImage
-            src={effectPoisonImg}
-            sizes="(max-width: 768px) 100vw,
-           (max-width: 1200px) 50vw,
-           33vw"
-            width={110}
-            quality={100}
-            priority
-            alt="effect"
-          />
-        )}
-        {effect === "freeze" && (
-          <EffectImage
-            src={effectFreezeImg}
-            sizes="(max-width: 768px) 100vw,
-           (max-width: 1200px) 50vw,
-           33vw"
-            width={110}
-            quality={100}
-            priority
-            alt="effect"
-          />
-        )}
-        {effect === "blood" && (
-          <EffectImage
-            src={effectBloodImg}
-            sizes="(max-width: 768px) 100vw,
-           (max-width: 1200px) 50vw,
-           33vw"
-            width={110}
-            quality={100}
-            priority
-            alt="effect"
-          />
-        )}
-
-        {category === "sword" && (
-          <CategoryImageSword
-            src={sword}
-            sizes="(max-width: 768px) 100vw,
-           (max-width: 1200px) 50vw,
-           33vw"
-            width={110}
-            quality={100}
-            priority
-            alt="sword"
-          />
-        )}
-
-        {category === "mage" && (
-          <CategoryImageMage
-            src={mage}
-            sizes="(max-width: 768px) 100vw,
-           (max-width: 1200px) 50vw,
-           33vw"
-            width={110}
-            quality={100}
-            priority
-            alt="mage"
-          />
-        )}
-
-        {category === "range" && (
-          <CategoryImageRange
-            src={range}
-            sizes="(max-width: 768px) 100vw,
-           (max-width: 1200px) 50vw,
-           33vw"
-            width={110}
-            quality={100}
-            priority
-            alt="mage"
-          />
-        )}
-
-        <MainImage
-          src={image}
-          sizes="(max-width: 768px) 100vw,
-           (max-width: 1200px) 50vw,
-           33vw"
-          width={120}
-          height={120}
-          quality={100}
-          priority
-          alt="border"
-        />
-        <ContentDescription>
-          <Title>{title}</Title>
-          <Description>{description}</Description>
-        </ContentDescription>
-      </Content>
-    </Container>
+          <ContentDescription>
+            <Title>{title}</Title>
+            <Description>{description}</Description>
+          </ContentDescription>
+        </Content>
+      </Container>
+    </>
   );
 }

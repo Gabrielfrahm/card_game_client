@@ -137,22 +137,20 @@ export const CardContainer = styled("div", {
   justifyContent: "center",
   height: "100%",
   width: "90%",
-
-  "@media(max-width: 1750px)": {
-    width: "90%",
-  },
 });
 
 export const CardWrapper = styled("div", {
   display: "flex",
   justifyContent: "center",
+  alignItems: "center",
   flexWrap: "wrap",
-  maxWidth: "80%",
+  maxWidth: "90%",
+  minWidth: "90%",
   maxHeight: "450px",
   overflowY: "scroll",
 
   "@media(max-width: 1750px)": {
-    maxWidth: "80%",
+    maxWidth: "90%",
     maxHeight: "285px",
   },
 });
