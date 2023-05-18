@@ -25,12 +25,12 @@ const loginFormSchema = z.object({
   email: z
     .string()
     .trim()
-    .email({ message: "Precisa ser um e-mail valido." })
+    .email({ message: "E-mail need be valid." })
     .transform((email) => email.toLocaleLowerCase()),
   password: z
     .string()
     .trim()
-    .min(6, { message: "a senha precisa ter pelo menos 6 caracteres." }),
+    .min(6, { message: "The password must have at least 6 characters." }),
 });
 
 type LoginFormData = z.infer<typeof loginFormSchema>;
@@ -81,14 +81,14 @@ export default function Login() {
               errors={errors.email?.message}
             />
             <Input
-              labelName="Senha"
+              labelName="Password"
               register={register}
               name="password"
               context={!!watch("password")}
               errors={errors.password?.message}
             />
             <ButtonContainer>
-              <Button name="Confirmar" disabled={isSubmitting} />
+              <Button name="Confirm" disabled={isSubmitting} />
             </ButtonContainer>
           </Form>
         </FormContainer>

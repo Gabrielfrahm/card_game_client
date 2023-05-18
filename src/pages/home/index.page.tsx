@@ -2,11 +2,14 @@ import { GetServerSideProps } from "next";
 
 import Header from "../components/header";
 import {
+  ButtonDropMenu,
   CardContainer,
   CardWrapper,
   Container,
   Content,
   DeckContainer,
+  DropMenu,
+  DropMenuContent,
   NewDeckContainer,
   Panel,
   PanelCenter,
@@ -18,24 +21,32 @@ import {
 import privateRoute from "@/@shared/help/private.route";
 
 import { Card } from "../components/card";
-import { cardServices } from "@/@shared/services";
-import { ICard, IListResponse } from "@/@shared/interfaces";
-import Button from "../components/button";
-import Input from "../components/input";
-import InputHome from "./components/input";
-import { useEffect, useState } from "react";
-import TooltipCustom from "../components/card/tooltip";
 
-export default function Home() {
-  const [cards, setCards] = useState<IListResponse<ICard>>();
-  const { list } = cardServices();
+import Button from "../components/button";
+
+import InputHome from "./components/input";
+import { useCallback, useContext, useEffect, useState } from "react";
+
+import { CardContext, CardProvider } from "@/context/cardContext";
+import { FiltersParams } from "@/@shared/interfaces";
+import { CaretDown } from "phosphor-react";
+
+function Component() {
+  const { cards, listCards } = useContext(CardContext);
+  const [isShow, setIsShow] = useState<boolean>(false);
+
+  const list = useCallback(
+    async (filters?: FiltersParams) => {
+      await listCards(filters);
+    },
+    [listCards]
+  );
 
   useEffect(() => {
     (async () => {
-      const dale = await list();
-      setCards(dale);
+      await list();
     })();
-  }, []);
+  }, [list]);
 
   return (
     <>
@@ -52,33 +63,40 @@ export default function Home() {
             </PanelLeft>
             <PanelCenter>
               <SearchContainer>
+                <DropMenu>
+                  <ButtonDropMenu
+                    onClick={() => {
+                      setIsShow(!isShow);
+                    }}
+                  >
+                    <CaretDown size={18} color="#F1DDAB" />
+                  </ButtonDropMenu>
+                  <DropMenuContent isShow={isShow}>
+                    <p onClick={() => setIsShow(!isShow)}>Name</p>
+                    <p onClick={() => setIsShow(!isShow)}>Number</p>
+                    <p onClick={() => setIsShow(!isShow)}>Category</p>
+                    <p onClick={() => setIsShow(!isShow)}>Description</p>
+                    <p onClick={() => setIsShow(!isShow)}>Attack</p>
+                    <p onClick={() => setIsShow(!isShow)}>Effect</p>
+                    <p onClick={() => setIsShow(!isShow)}>Main Card</p>
+                  </DropMenuContent>
+                </DropMenu>
                 <InputHome />
               </SearchContainer>
               <CardContainer>
                 <CardWrapper>
-                  {cards?.data.data.map((card) => (
-                    <>
-                      <Card
-                        key={card.id}
-                        atk={card.atk}
-                        category={card.category}
-                        description={card.description}
-                        effect={card.effect}
-                        title={card.name}
-                        main={card.main_card}
-                        image={card.image_url}
-                      />
-                      {/* <Card
-                        key={card.id}
-                        atk={card.atk}
-                        category={card.category}
-                        description={card.description}
-                        effect={card.effect}
-                        title={card.name}
-                        main={true}
-                        image={card.image_url}
-                      /> */}
-                    </>
+                  {cards?.data?.data.map((card) => (
+                    <Card
+                      key={card.id}
+                      id={card.id}
+                      atk={card.atk}
+                      category={card.category}
+                      description={card.description}
+                      effect={card.effect}
+                      title={card.name}
+                      main={card.main_card}
+                      image={card.image_url}
+                    />
                   ))}
                 </CardWrapper>
               </CardContainer>
@@ -87,6 +105,14 @@ export default function Home() {
         </Content>
       </Container>
     </>
+  );
+}
+
+export default function Home() {
+  return (
+    <CardProvider>
+      <Component />
+    </CardProvider>
   );
 }
 

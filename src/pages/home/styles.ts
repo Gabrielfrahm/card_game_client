@@ -183,3 +183,52 @@ export const PanelRight = styled("div", {
     display: "none",
   },
 });
+
+export const DropMenu = styled("div", {
+  position: "relative",
+  display: "inline-block",
+});
+
+export const ButtonDropMenu = styled("button", {
+  border: "transparent",
+  borderRadius: "5px",
+  width: "50px",
+  height: "30px",
+  textAlign: "center",
+  backgroundColor: "#3D3A2E",
+
+  "&:hover": {
+    cursor: "pointer",
+    filter: "brightness(2)",
+  },
+});
+
+export const DropMenuContent = styled("div", {
+  display: "none",
+  position: "absolute",
+  backgroundColor: "#f9f9f9",
+  left: "-25px",
+  boxShadow: "0px 8px 16px 0px rgba(0,0,0,0.2)",
+  zIndex: "2",
+
+  p: {
+    color: "$title",
+    padding: "5px",
+    textAlign: "center",
+    backgroundColor: "$background",
+    fontSize: "$ssm",
+
+    "&:hover": {
+      cursor: "pointer",
+      filter: "brightness(2)",
+    },
+  },
+
+  variants: {
+    isShow: {
+      true: {
+        display: "block",
+      },
+    },
+  },
+});

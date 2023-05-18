@@ -7,5 +7,6 @@ export const urls = {
   },
   card: {
     list: (): string => "/cards",
+    get: (id: string): string => `/cards/${id}`,
   },
 };

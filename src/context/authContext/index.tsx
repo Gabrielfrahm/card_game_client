@@ -48,7 +48,7 @@ export const AuthProvider = ({ children }: any) => {
 
       toastNotification({
         type: "success",
-        message: "sucesso",
+        message: "success",
       });
 
       Router.push("/home");

@@ -4,9 +4,10 @@ interface IOptions {
 
 export function translateErrors(field: string): string {
   const options: IOptions = {
-    "Incorrect email/password combination": "senha/E-mail não combinam!",
-    "Email already existing": "E-mail ja existe!",
-    "Entity Not Found Using this e-mail": "E-mail não existe",
+    "Incorrect email/password combination":
+      "Incorrect email/password combination!",
+    "Email already existing": "Email already existing!",
+    "Entity Not Found Using this e-mail": "Entity Not Found Using this e-mail",
   };
 
   return options[field] || field;

@@ -1,65 +1,32 @@
 import { styled } from "@stitches/react";
 import Image from "next/image";
-import borderImg from "../../../assets/panel/border.png";
+import borderImg from "../../../../assets/panel/border.png";
 
 export const Container = styled("div", {
-  height: "420px",
-  width: "230px",
-  backgroundColor: "#89826F",
+  minWidth: "25rem",
+  minHeight: "40rem",
+  backgroundColor: "#D3C39A",
   borderRadius: "25px",
   border: "4px solid #D3C39A",
   position: "relative",
   margin: "5px",
 
-  span: {
-    position: "absolute",
-    visibility: "hidden",
-    backgroundColor: "#000",
-    color: "#FFF",
-    padding: " 10px 10px",
-    width: "200px",
-    fontFamily: "monospace",
-    fontSize: "$md",
-
-    "@media(max-width: 768px)": {
-      width: "150px",
-    },
-  },
-
   "&:hover": {
     boxShadow: "0 0 10px 5px rgba(170, 164, 148, 1)",
     cursor: "pointer",
-
-    span: {
-      visibility: "visible",
-      opacity: "1",
-      bottom: "100px",
-      left: "50px",
-      zIndex: "999",
-      borderImage: `url(${borderImg.src})  8 fill / 8px`,
-
-      "@media(max-width: 768px)": {
-        left: "25px",
-      },
-    },
-  },
-
-  "@media(max-width: 1750px)": {
-    height: "350px",
-    width: "200px",
   },
 
   "@media(max-width: 1440px)": {
-    height: "280px",
-    width: "180px",
+    minWidth: "18rem",
+    minHeight: "30rem",
   },
 });
 
 export const ContainerBorderImage = styled("div", {
   position: "absolute",
   zIndex: 1,
-  width: "20px",
-  height: "50px",
+  width: "40px",
+  height: "80px",
   display: "flex",
   justifyContent: "center",
   alignItems: "center",
@@ -70,33 +37,31 @@ export const ContainerBorderImage = styled("div", {
   },
 
   "@media(max-width: 1440px)": {
-    width: "5px",
-    height: "35px",
+    width: "20px",
+    height: "55px",
   },
 });
 
 export const Atk = styled("h1", {
   color: "$text",
-  fontSize: "$lg",
-
-  "@media(max-width: 1750px)": {
-    fontSize: "$md",
-  },
+  fontSize: "$2xl",
 
   "@media(max-width: 1440px)": {
-    fontSize: "$sm",
+    fontSize: "$lg",
   },
 });
 
 export const BorderImg = styled(Image, {
   position: "absolute",
-  top: "-14px",
+  top: "-8px",
   left: "-25px",
   zIndex: -1,
 
   "@media(max-width: 1440px)": {
-    width: "100px",
-    height: "100px",
+    width: "120px",
+    height: "120px",
+    top: "-8px",
+    left: "-22px",
   },
 });
 
@@ -104,8 +69,6 @@ export const Content = styled("div", {});
 
 export const MainImage = styled(Image, {
   position: "absolute",
-  top: "0",
-  left: "0",
   width: "100%",
   height: "100%",
   zIndex: 0,
@@ -113,62 +76,66 @@ export const MainImage = styled(Image, {
 
 export const CategoryImageSword = styled(Image, {
   position: "absolute",
-  width: "80px",
-  height: "50px",
+  width: "140px",
+  height: "80px",
   top: "100px",
-  left: "-12px",
+  left: "-20px",
   zIndex: 1,
 
   "@media(max-width: 1440px)": {
-    display: "none",
+    width: "100px",
+    height: "60px",
+    left: "-15px",
   },
 });
 
 export const CategoryImageMage = styled(Image, {
   position: "absolute",
-  width: "50px",
-  height: "50px",
+  width: "80px",
+  height: "80px",
   top: "100px",
-  left: "5px",
+  left: "12px",
   zIndex: 1,
 
   "@media(max-width: 1440px)": {
-    display: "none",
+    width: "60px",
+    height: "60px",
   },
 });
 
 export const CategoryImageRange = styled(Image, {
   position: "absolute",
-  width: "75px",
-  height: "55px",
+  width: "130px",
+  height: "85px",
   top: "100px",
-  left: "-2px",
   zIndex: 1,
 
   "@media(max-width: 1440px)": {
-    display: "none",
+    width: "90px",
+    height: "65px",
   },
 });
 
 export const EffectImage = styled(Image, {
   position: "absolute",
-  width: "47px",
-  height: "47px",
-  top: "172px",
-  left: "5px",
+  width: "80px",
+  height: "80px",
+  top: "200px",
+  left: "10px",
   zIndex: 1,
 
   "@media(max-width: 1440px)": {
-    display: "none",
+    width: "60px",
+    height: "60px",
   },
 });
 
 export const ContentDescription = styled("div", {
   position: "absolute",
-  bottom: "-5px",
-  left: "-5px",
-  width: "222px",
-  height: "66px",
+  bottom: "0px",
+  left: "-1px",
+  minWidth: "24.60rem",
+  height: "100px",
   backgroundColor: "#89826F",
   borderTop: "4px solid #D3C39A",
   borderBottomRightRadius: "20px",
@@ -178,25 +145,15 @@ export const ContentDescription = styled("div", {
   justifyContent: "center",
   flexDirection: "column",
 
-  "@media(max-width: 1750px)": {
-    width: "193px",
-  },
-
   "@media(max-width: 1440px)": {
-    width: "173px",
+    minWidth: "17.60rem",
   },
 });
 
 export const Title = styled("h2", {
-  fontSize: "$ssm",
+  fontSize: "$lg",
+  textAlign: "center",
   color: "$title",
-
-  "@media(max-width: 1750px)": {
-    maxWidth: "100px",
-    whiteSpace: "nowrap",
-    overflow: "hidden",
-    textOverflow: "ellipsis",
-  },
 });
 
 export const Description = styled("p", {
@@ -206,24 +163,10 @@ export const Description = styled("p", {
   color: "$text",
   textAlign: "center",
 
-  "@media(max-width: 1750px)": {
-    maxWidth: "150px",
-    whiteSpace: "break-spaces",
-    overflow: "hidden",
-    textOverflow: "ellipsis",
-  },
-
   "@media(max-width: 1440px)": {
     maxWidth: "150px",
     whiteSpace: "nowrap",
     overflow: "hidden",
     textOverflow: "ellipsis",
   },
-});
-
-export const TooltipContainer = styled("div", {
-  display: "flex",
-  justifyContent: "center",
-  alignItems: "center",
-  fontSize: "$ssm",
 });

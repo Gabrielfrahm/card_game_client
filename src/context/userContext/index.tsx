@@ -1,9 +1,7 @@
-import { TUser } from "@/@shared/interfaces";
 import { TRequest } from "@/@shared/services/userService/contracts";
 import { userServices } from "@/@shared/services";
-import { createContext, useEffect, useState } from "react";
-import { destroyCookie, parseCookies, setCookie } from "nookies";
-import { api } from "@/@shared/lib/api";
+import { createContext } from "react";
+
 import { toastNotification } from "@/pages/components/toast";
 import { IError } from "@/@shared/lib/http.error";
 import { translateErrors } from "@/@shared/help/translation";
@@ -16,7 +14,6 @@ type UserContextType = {
 export const UserContext = createContext({} as UserContextType);
 
 export const UserProvider = ({ children }: any) => {
-  // const [user, setUser] = useState<TUser>({} as TUser);
   const { create } = userServices();
 
   async function createUser({ email, name, password }: TRequest) {
@@ -29,7 +26,7 @@ export const UserProvider = ({ children }: any) => {
 
       toastNotification({
         type: "success",
-        message: "usuário criado com sucesso",
+        message: "user created",
       });
 
       Router.push("/login");

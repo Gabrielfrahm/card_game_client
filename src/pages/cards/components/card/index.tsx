@@ -14,17 +14,17 @@ import {
   CategoryImageRange,
   TooltipContainer,
 } from "./styles";
-import borderMainImg from "../../../assets/border-card-main-detail.png";
-import borderImg from "../../../assets/border-card.png";
-import RightClick from "../../../assets/right-click.svg";
+import borderMainImg from "../../../../assets/border-card-main-detail.png";
+import borderImg from "../../../../assets/border-card.png";
+import RightClick from "../../../../assets/right-click.svg";
 
-import effectPoisonImg from "../../../assets/effect/effect.png";
-import effectFreezeImg from "../../../assets/effect/freeze.png";
-import effectBloodImg from "../../../assets/effect/blood.png";
+import effectPoisonImg from "../../../../assets/effect/effect.png";
+import effectFreezeImg from "../../../../assets/effect/freeze.png";
+import effectBloodImg from "../../../../assets/effect/blood.png";
 
-import sword from "../../../assets/category/sword.png";
-import mage from "../../../assets/category/mage.png";
-import range from "../../../assets/category/range.png";
+import sword from "../../../../assets/category/sword.png";
+import mage from "../../../../assets/category/mage.png";
+import range from "../../../../assets/category/range.png";
 
 import { useState } from "react";
 import { MouseSimple } from "phosphor-react";
@@ -56,22 +56,7 @@ export function Card({
   // document.addEventListener("contextmenu", (event) => event.preventDefault());
   return (
     <>
-      <Container
-        style={{
-          margin: "5px 30px 15px 0",
-        }}
-      >
-        <span
-          onMouseDown={(e) =>
-            e.buttons === 2 ? Router.push(`cards/${id}`) : null
-          }
-        >
-          {description}{" "}
-          <TooltipContainer>
-            more info
-            <Image src={RightClick} width={20} height={20} alt="" />
-          </TooltipContainer>
-        </span>
+      <Container>
         <ContainerBorderImage>
           <Atk>{atk}</Atk>
           {main ? (
@@ -80,7 +65,7 @@ export function Card({
               sizes="(max-width: 768px) 100vw,
              (max-width: 1200px) 50vw,
              33vw"
-              width={120}
+              width={160}
               quality={100}
               priority
               alt="border"
@@ -188,7 +173,7 @@ export function Card({
           />
           <ContentDescription>
             <Title>{title}</Title>
-            <Description>{description}</Description>
+            {/* <Description>{description}</Description> */}
           </ContentDescription>
         </Content>
       </Container>

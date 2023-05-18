@@ -8,7 +8,12 @@ const cardServices = (): TMethod => {
     return getAPIClient().get(urls.card.list(), filters);
   }
 
-  return { list };
+  async function get(id: string): Promise<ICard> {
+    const card = await getAPIClient().get(urls.card.get(id));
+    return card.data;
+  }
+
+  return { list, get };
 };
 
 export default cardServices;

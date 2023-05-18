@@ -26,17 +26,17 @@ const signUpFormSchema = z.object({
   email: z
     .string()
     .trim()
-    .email({ message: "Precisa ser um e-mail valido." })
+    .email({ message: "E-mail need be valid." })
     .transform((email) => email.toLocaleLowerCase()),
   nick: z
     .string()
     .trim()
-    .min(3, { message: "o nick  precisa ter pelo menos 3 caracteres." })
-    .max(40, { message: "o nick pode ter no máximo 40 caracteres." }),
+    .min(3, { message: "nickname must be at least 3 characters long." })
+    .max(40, { message: "nickname can be a maximum of 40 characters." }),
   password: z
     .string()
     .trim()
-    .min(6, { message: "a senha precisa ter pelo menos 6 caracteres." }),
+    .min(6, { message: "The password must have at least 6 characters." }),
 });
 
 type SignUpFormData = z.infer<typeof signUpFormSchema>;
@@ -97,14 +97,14 @@ const Component = () => {
               errors={errors.nick?.message}
             />
             <Input
-              labelName="Senha"
+              labelName="Password"
               register={register}
               name="password"
               context={!!watch("password")}
               errors={errors.password?.message}
             />
             <ButtonContainer>
-              <Button name="Confirmar" disabled={isSubmitting} />
+              <Button name="Confirm" disabled={isSubmitting} />
             </ButtonContainer>
           </Form>
         </FormContainer>
