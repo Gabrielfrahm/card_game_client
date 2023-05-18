@@ -5,7 +5,7 @@ import { ICard, IListResponse } from "@/@shared/interfaces";
 
 const cardServices = (): TMethod => {
   async function list(filters?: any): Promise<IListResponse<ICard>> {
-    return getAPIClient().get(urls.card.list(), filters);
+    return getAPIClient().get(urls.card.list(), { params: filters });
   }
 
   async function get(id: string): Promise<ICard> {

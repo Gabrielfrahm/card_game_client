@@ -11,10 +11,10 @@ export interface IListResponse<T> {
 }
 
 export type FiltersParams = {
-  per_page: string;
-  page: string;
-  sort: string;
-  sort_dir: string;
-  filter: string;
-  column: string;
+  per_page?: string;
+  page?: string;
+  sort?: string;
+  sort_dir?: string;
+  filter?: string;
+  column?: string;
 };

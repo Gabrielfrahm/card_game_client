@@ -21,7 +21,8 @@ export const CardProvider = ({ children }: any) => {
 
   async function listCards(filtersParams?: FiltersParams) {
     try {
-      const response = await list(filtersParams);
+      const response = await list({ ...filtersParams });
+      console.log("FiltersParams", filtersParams);
       setCards(response);
     } catch (e) {
       const error = e as IError;

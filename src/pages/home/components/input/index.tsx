@@ -1,11 +1,15 @@
+import { InputHTMLAttributes } from "react";
 import { Container, TextInput } from "./styles";
 import { MagnifyingGlass } from "phosphor-react";
 
-export default function InputHome() {
+interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
+  register: any;
+}
+
+export default function InputHome({ register }: InputProps) {
   return (
     <Container>
-      <MagnifyingGlass color="#F1DDAB" />
-      <TextInput />
+      <TextInput {...register("filterValue")} />
     </Container>
   );
 }

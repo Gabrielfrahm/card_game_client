@@ -17,6 +17,8 @@ import {
   PanelRight,
   SearchContainer,
   Title,
+  ButtonSearch,
+  ClearButtonSearch,
 } from "./styles";
 import privateRoute from "@/@shared/help/private.route";
 
@@ -29,11 +31,15 @@ import { useCallback, useContext, useEffect, useState } from "react";
 
 import { CardContext, CardProvider } from "@/context/cardContext";
 import { FiltersParams } from "@/@shared/interfaces";
-import { CaretDown } from "phosphor-react";
+import { CaretDown, MagnifyingGlass, Trash } from "phosphor-react";
+import { useForm } from "react-hook-form";
 
 function Component() {
   const { cards, listCards } = useContext(CardContext);
   const [isShow, setIsShow] = useState<boolean>(false);
+  const { watch, register, resetField } = useForm();
+
+  const [column, setColumn] = useState<string>("name");
 
   const list = useCallback(
     async (filters?: FiltersParams) => {
@@ -46,7 +52,8 @@ function Component() {
     (async () => {
       await list();
     })();
-  }, [list]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <>
@@ -72,16 +79,77 @@ function Component() {
                     <CaretDown size={18} color="#F1DDAB" />
                   </ButtonDropMenu>
                   <DropMenuContent isShow={isShow}>
-                    <p onClick={() => setIsShow(!isShow)}>Name</p>
-                    <p onClick={() => setIsShow(!isShow)}>Number</p>
-                    <p onClick={() => setIsShow(!isShow)}>Category</p>
-                    <p onClick={() => setIsShow(!isShow)}>Description</p>
-                    <p onClick={() => setIsShow(!isShow)}>Attack</p>
-                    <p onClick={() => setIsShow(!isShow)}>Effect</p>
-                    <p onClick={() => setIsShow(!isShow)}>Main Card</p>
+                    <p
+                      onClick={() => {
+                        setColumn("name");
+                        setIsShow(!isShow);
+                      }}
+                    >
+                      Name
+                    </p>
+                    <p
+                      onClick={() => {
+                        setColumn("number");
+                        setIsShow(!isShow);
+                      }}
+                    >
+                      Number
+                    </p>
+                    <p
+                      onClick={() => {
+                        setColumn("category");
+                        setIsShow(!isShow);
+                      }}
+                    >
+                      Category
+                    </p>
+                    <p
+                      onClick={() => {
+                        setColumn("description");
+                        setIsShow(!isShow);
+                      }}
+                    >
+                      Description
+                    </p>
+                    <p
+                      onClick={() => {
+                        setColumn("atk");
+                        setIsShow(!isShow);
+                      }}
+                    >
+                      Attack
+                    </p>
+                    <p
+                      onClick={() => {
+                        setColumn("effect");
+                        setIsShow(!isShow);
+                      }}
+                    >
+                      Effect
+                    </p>
                   </DropMenuContent>
                 </DropMenu>
-                <InputHome />
+                <InputHome register={register} />
+                <ButtonSearch
+                  onClick={async () => {
+                    await listCards({
+                      column: column,
+                      filter: watch("filterValue"),
+                    });
+                  }}
+                  disabled={!watch("filterValue")}
+                >
+                  <MagnifyingGlass color="#F1DDAB" />
+                </ButtonSearch>
+                <ClearButtonSearch
+                  onClick={async () => {
+                    resetField("filterValue");
+                    await listCards();
+                  }}
+                  disabled={!watch("filterValue")}
+                >
+                  <Trash color="#F1DDAB" />
+                </ClearButtonSearch>
               </SearchContainer>
               <CardContainer>
                 <CardWrapper>

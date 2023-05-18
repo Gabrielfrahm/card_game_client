@@ -103,7 +103,7 @@ export const PanelCenter = styled("div", {
   },
 
   "@media(max-width: 1440px)": {
-    minWidth: "35rem",
+    minWidth: "55rem",
     minHeight: "24rem",
   },
 
@@ -228,6 +228,57 @@ export const DropMenuContent = styled("div", {
     isShow: {
       true: {
         display: "block",
+      },
+    },
+  },
+});
+
+export const ButtonSearch = styled("button", {
+  border: "transparent",
+  borderRadius: "5px",
+  width: "50px",
+  height: "30px",
+  textAlign: "center",
+  backgroundColor: "#3D3A2E",
+
+  "&:hover": {
+    cursor: "pointer",
+    filter: "brightness(2)",
+  },
+
+  variants: {
+    disabled: {
+      true: {
+        "&:hover": {
+          cursor: "not-allowed",
+          filter: "brightness(1)",
+        },
+      },
+    },
+  },
+});
+
+export const ClearButtonSearch = styled("button", {
+  border: "transparent",
+  borderRadius: "5px",
+  width: "50px",
+  height: "30px",
+  textAlign: "center",
+  backgroundColor: "#3D3A2E",
+  margin: "5px",
+
+  "&:hover": {
+    cursor: "pointer",
+    filter: "brightness(2)",
+  },
+
+  variants: {
+    disabled: {
+      true: {
+        "&:hover": {
+          cursor: "not-allowed",
+          filter: "brightness(1)",
+        },
       },
     },
   },
