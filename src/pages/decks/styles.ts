@@ -1,6 +1,7 @@
 import { styled } from "@stitches/react";
 
 import borderImg from "../../assets/panel/border.png";
+import Image from "next/image";
 
 export const Container = styled("div", {
   width: "100vw",
@@ -84,25 +85,6 @@ export const PanelLeft = styled("div", {
 export const DeckContainer = styled("div", {
   maxHeight: "28rem",
   overflowY: "scroll",
-});
-
-export const Decks = styled("div", {
-  position: "relative",
-  display: "flex",
-  justifyContent: "left",
-  alignItems: "center",
-  width: "14rem",
-  height: "1.5rem",
-  borderBottom: "1px solid $details",
-  "&:hover": {
-    cursor: "pointer",
-    filter: "brightness(2)",
-  },
-
-  p: {
-    color: "$title",
-    paddingRight: "12px",
-  },
 });
 
 export const PanelCenter = styled("div", {
@@ -277,4 +259,91 @@ export const ClearButtonSearch = styled("button", {
   },
 });
 
-export const MiniCard = styled("div", {});
+export const TitleCard = styled("h1", {
+  fontSize: "$lg",
+  fontWeight: "lighter",
+  color: "$title",
+  textAlign: "center",
+  margin: "10px",
+});
+
+export const MiniCard = styled("div", {
+  display: "flex",
+  justifyContent: "space-between",
+  alignItems: "center",
+  width: "15rem",
+  height: "2rem",
+  borderRadius: "3px",
+  zIndex: 1,
+
+  position: "relative",
+
+  variants: {
+    effect: {
+      poison: {
+        backgroundColor: "#AC4346",
+        border: "2px solid #AC4346",
+
+        "&:hover": {
+          cursor: "pointer",
+          filter: "brightness(1.3)",
+          border: "2px solid $details",
+        },
+      },
+
+      freeze: {
+        border: "2px solid #0E1D29",
+        backgroundColor: "#0E1D29",
+        "&:hover": {
+          cursor: "pointer",
+          filter: "brightness(1.3)",
+          border: "2px solid $details",
+        },
+      },
+    },
+  },
+});
+
+export const MiniCardImage = styled(Image, {
+  position: "absolute",
+  zIndex: -1,
+});
+
+export const MiniCardPower = styled("div", {
+  display: "flex",
+  justifyContent: "center",
+  alignItems: "center",
+  minWidth: "2rem",
+  minHeight: "1.8rem",
+  zIndex: 1,
+
+  p: {
+    color: "$title",
+    margin: "0 5px",
+    fontSize: "$md",
+    fontWeight: "bold",
+  },
+});
+
+export const MiniCardName = styled("div", {
+  display: "flex",
+  justifyContent: "center",
+  alignItems: "center",
+  minWidth: "11rem",
+  minHeight: "1.8rem",
+  zIndex: 1,
+
+  p: {
+    color: "$text",
+    fontWeight: "bold",
+    maxWidth: "11rem",
+    whiteSpace: "nowrap",
+    overflow: "hidden",
+    textOverflow: "ellipsis",
+  },
+});
+
+export const SumPower = styled("p", {
+  color: "$title",
+  fontSize: "$ssm",
+});

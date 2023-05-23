@@ -1,11 +1,20 @@
 import privateRoute from "@/@shared/help/private.route";
-import { FiltersParams, ICard, IDeck } from "@/@shared/interfaces";
-import { CardContext, CardProvider } from "@/context/cardContext";
+import { ICard } from "@/@shared/interfaces";
+import { CardProvider } from "@/context/cardContext";
 import { DeckContext, DeckProvider } from "@/context/deckContext";
 import { GetServerSideProps } from "next";
-import Router, { useRouter } from "next/router";
+import { useRouter } from "next/router";
 import { useCallback, useContext, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
+
+import Header from "../components/header";
+
+import { CaretDown, MagnifyingGlass, Trash } from "phosphor-react";
+import InputHome from "../home/components/input";
+import { Card } from "../components/card";
+import { getAPIClient } from "@/@shared/lib/http";
+import { urls } from "@/@shared/constants/api";
+import Battle from "../../assets/battle.png";
 
 import {
   ButtonDropMenu,
@@ -24,15 +33,12 @@ import {
   ButtonSearch,
   ClearButtonSearch,
   MiniCard,
+  TitleCard,
+  MiniCardPower,
+  MiniCardName,
+  MiniCardImage,
+  SumPower,
 } from "./styles";
-
-import Header from "../components/header";
-
-import { CaretDown, MagnifyingGlass, Trash } from "phosphor-react";
-import InputHome from "../home/components/input";
-import { Card } from "../components/card";
-import { getAPIClient } from "@/@shared/lib/http";
-import { urls } from "@/@shared/constants/api";
 
 function Component(props: any) {
   const router = useRouter();
@@ -46,6 +52,7 @@ function Component(props: any) {
 
   const [column, setColumn] = useState<string>("name");
   const [cards, setCards] = useState<ICard[]>(props.props.deck.cards);
+  const [sumPower, setSumPower] = useState<number>(0);
 
   const handleFilterCards = async (column: string, value: string) => {
     if (value) {
@@ -57,6 +64,14 @@ function Component(props: any) {
     }
   };
 
+  const handleSumPowerDeck = useCallback(async () => {
+    let sum = 0;
+    cards.forEach((card) => {
+      sum += Number(card.atk);
+    });
+    setSumPower(sum);
+  }, [cards]);
+
   const handleGetDeck = useCallback(
     async (id: string) => {
       await getDeck(id);
@@ -66,7 +81,8 @@ function Component(props: any) {
 
   useEffect(() => {
     handleGetDeck(`${deckId}`);
-  }, [handleGetDeck, deckId]);
+    handleSumPowerDeck();
+  }, [handleGetDeck, deckId, handleSumPowerDeck]);
 
   return (
     <>
@@ -76,8 +92,34 @@ function Component(props: any) {
           <Title>{deck.name}</Title>
           <Panel>
             <PanelLeft>
+              <TitleCard>Cards</TitleCard>
+              <SumPower>power {sumPower}</SumPower>
               <DeckContainer>
-                <MiniCard>{deck.id}</MiniCard>
+                {props.props.deck.cards.map((card: ICard) => (
+                  <MiniCard
+                    key={card.id}
+                    effect={card.effect as any}
+                    style={{
+                      margin: "15px 5px 0 0",
+                    }}
+                  >
+                    <MiniCardPower>
+                      <MiniCardImage
+                        src={Battle.src}
+                        sizes="(max-width: 768px) 100vw,
+                        (max-width: 1200px) 50vw,
+                        33vw"
+                        width={50}
+                        height={50}
+                        alt=""
+                      />
+                      <p>{card.atk}</p>
+                    </MiniCardPower>
+                    <MiniCardName>
+                      <p>{card.name}</p>
+                    </MiniCardName>
+                  </MiniCard>
+                ))}
               </DeckContainer>
             </PanelLeft>
             <PanelCenter>
@@ -145,7 +187,6 @@ function Component(props: any) {
                 <ButtonSearch
                   onClick={async () => {
                     handleFilterCards(column, watch("filterValue"));
-                    // setCards(props.props.deck.cards);
                   }}
                   disabled={!watch("filterValue")}
                 >
