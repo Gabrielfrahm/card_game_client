@@ -54,6 +54,7 @@ export function Card({
   main,
 }: typeProps) {
   // document.addEventListener("contextmenu", (event) => event.preventDefault());
+
   return (
     <>
       <Container
@@ -63,7 +64,7 @@ export function Card({
       >
         <span
           onMouseDown={(e) =>
-            e.buttons === 2 ? Router.push(`cards/${id}`) : null
+            e.buttons === 2 ? Router.push(`/cards/${id}`) : null
           }
         >
           {description}{" "}

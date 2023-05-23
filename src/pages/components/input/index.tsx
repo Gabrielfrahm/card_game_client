@@ -1,14 +1,11 @@
 import { EyeClosed, Eye, Warning } from "phosphor-react";
 import { InputHTMLAttributes, useState } from "react";
-import * as Tooltip from "@radix-ui/react-tooltip";
+
 import {
   Container,
   ContainerTextInput,
   Text,
-  TextError,
   TextInput,
-  TooltipContainer,
-  TooltipIcon,
   WrapperPassword,
 } from "./styles";
 import TooltipCustom from "./tooltip";

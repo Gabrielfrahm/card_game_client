@@ -38,7 +38,9 @@ import {
   MiniCardName,
   MiniCardImage,
   SumPower,
+  Back,
 } from "./styles";
+import TooltipCustom from "./tooltip";
 
 function Component(props: any) {
   const router = useRouter();
@@ -88,6 +90,7 @@ function Component(props: any) {
     <>
       <Header />
       <Container>
+        <Back size={35} onClick={() => router.back()} />
         <Content>
           <Title>{deck.name}</Title>
           <Panel>
@@ -96,29 +99,7 @@ function Component(props: any) {
               <SumPower>power {sumPower}</SumPower>
               <DeckContainer>
                 {props.props.deck.cards.map((card: ICard) => (
-                  <MiniCard
-                    key={card.id}
-                    effect={card.effect as any}
-                    style={{
-                      margin: "15px 5px 0 0",
-                    }}
-                  >
-                    <MiniCardPower>
-                      <MiniCardImage
-                        src={Battle.src}
-                        sizes="(max-width: 768px) 100vw,
-                        (max-width: 1200px) 50vw,
-                        33vw"
-                        width={50}
-                        height={50}
-                        alt=""
-                      />
-                      <p>{card.atk}</p>
-                    </MiniCardPower>
-                    <MiniCardName>
-                      <p>{card.name}</p>
-                    </MiniCardName>
-                  </MiniCard>
+                  <TooltipCustom {...card} key={card.id} />
                 ))}
               </DeckContainer>
             </PanelLeft>

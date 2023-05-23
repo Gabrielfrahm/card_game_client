@@ -2,6 +2,7 @@ import { styled } from "@stitches/react";
 
 import borderImg from "../../assets/panel/border.png";
 import Image from "next/image";
+import { CaretLeft } from "phosphor-react";
 
 export const Container = styled("div", {
   width: "100vw",
@@ -346,4 +347,30 @@ export const MiniCardName = styled("div", {
 export const SumPower = styled("p", {
   color: "$title",
   fontSize: "$ssm",
+});
+
+export const Back = styled(CaretLeft, {
+  color: "#89826F",
+
+  "&:hover": {
+    cursor: "pointer",
+  },
+});
+
+export const TooltipContainer = styled("div", {
+  display: "flex",
+  backgroundColor: "transparent",
+  zIndex: "999",
+  border: "2px solid $details",
+  borderRadius: "20px",
+});
+
+export const ToolTipImage = styled(Image, {
+  width: "200px",
+  height: "350px",
+
+  "@media(max-width: 1440px)": {
+    width: "150px",
+    height: "250px",
+  },
 });
