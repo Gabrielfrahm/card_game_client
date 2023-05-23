@@ -12,11 +12,9 @@ import {
   CategoryImageMage,
   CategoryImageSword,
   CategoryImageRange,
-  TooltipContainer,
 } from "./styles";
 import borderMainImg from "../../../../assets/border-card-main-detail.png";
 import borderImg from "../../../../assets/border-card.png";
-import RightClick from "../../../../assets/right-click.svg";
 
 import effectPoisonImg from "../../../../assets/effect/effect.png";
 import effectFreezeImg from "../../../../assets/effect/freeze.png";
@@ -25,12 +23,6 @@ import effectBloodImg from "../../../../assets/effect/blood.png";
 import sword from "../../../../assets/category/sword.png";
 import mage from "../../../../assets/category/mage.png";
 import range from "../../../../assets/category/range.png";
-
-import { useState } from "react";
-import { MouseSimple } from "phosphor-react";
-import { theme } from "@/styles";
-import Image from "next/image";
-import Router from "next/router";
 
 export type typeProps = {
   id: string;
@@ -47,13 +39,11 @@ export function Card({
   id,
   atk,
   category,
-  description,
   effect,
   image,
   title,
   main,
 }: typeProps) {
-  // document.addEventListener("contextmenu", (event) => event.preventDefault());
   return (
     <>
       <Container>
@@ -173,7 +163,6 @@ export function Card({
           />
           <ContentDescription>
             <Title>{title}</Title>
-            {/* <Description>{description}</Description> */}
           </ContentDescription>
         </Content>
       </Container>

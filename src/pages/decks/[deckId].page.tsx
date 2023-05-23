@@ -1,6 +1,12 @@
+import privateRoute from "@/@shared/help/private.route";
+import { FiltersParams, ICard, IDeck } from "@/@shared/interfaces";
+import { CardContext, CardProvider } from "@/context/cardContext";
+import { DeckContext, DeckProvider } from "@/context/deckContext";
 import { GetServerSideProps } from "next";
+import Router, { useRouter } from "next/router";
+import { useCallback, useContext, useEffect, useState } from "react";
+import { useForm } from "react-hook-form";
 
-import Header from "../components/header";
 import {
   ButtonDropMenu,
   CardContainer,
@@ -10,7 +16,6 @@ import {
   DeckContainer,
   DropMenu,
   DropMenuContent,
-  NewDeckContainer,
   Panel,
   PanelCenter,
   PanelLeft,
@@ -18,82 +23,61 @@ import {
   Title,
   ButtonSearch,
   ClearButtonSearch,
-  Decks,
+  MiniCard,
 } from "./styles";
-import privateRoute from "@/@shared/help/private.route";
 
+import Header from "../components/header";
+
+import { CaretDown, MagnifyingGlass, Trash } from "phosphor-react";
+import InputHome from "../home/components/input";
 import { Card } from "../components/card";
+import { getAPIClient } from "@/@shared/lib/http";
+import { urls } from "@/@shared/constants/api";
 
-import Button from "../components/button";
+function Component(props: any) {
+  const router = useRouter();
 
-import InputHome from "./components/input";
-import { useCallback, useContext, useEffect, useMemo, useState } from "react";
+  const { deckId } = router.query;
 
-import { CardContext, CardProvider } from "@/context/cardContext";
-import { FiltersParams } from "@/@shared/interfaces";
-import { Cards, CaretDown, MagnifyingGlass, Trash } from "phosphor-react";
-import { useForm } from "react-hook-form";
-import { DeckContext, DeckProvider } from "@/context/deckContext";
-import Router from "next/router";
+  const { deck, getDeck } = useContext(DeckContext);
 
-function Component() {
-  const { cards, listCards } = useContext(CardContext);
-  const { listDecks, decks } = useContext(DeckContext);
   const [isShow, setIsShow] = useState<boolean>(false);
   const { watch, register, resetField } = useForm();
 
   const [column, setColumn] = useState<string>("name");
+  const [cards, setCards] = useState<ICard[]>(props.props.deck.cards);
 
-  const handleListCards = useCallback(
-    async (filters?: FiltersParams) => {
-      await listCards(filters);
-    },
-    [listCards]
-  );
+  const handleFilterCards = async (column: string, value: string) => {
+    if (value) {
+      const cardsFiltered = deck.cards.filter((card) =>
+        //@ts-ignore
+        String(card[column]).toUpperCase().includes(value.toUpperCase())
+      );
+      setCards(cardsFiltered);
+    }
+  };
 
-  const handleListDecks = useCallback(
-    async (filters?: FiltersParams) => {
-      await listDecks(filters);
+  const handleGetDeck = useCallback(
+    async (id: string) => {
+      await getDeck(id);
     },
-    [listDecks]
+    [getDeck]
   );
 
   useEffect(() => {
-    handleListCards();
-    handleListDecks();
-  }, [handleListCards, handleListDecks]);
+    handleGetDeck(`${deckId}`);
+  }, [handleGetDeck, deckId]);
 
   return (
     <>
       <Header />
       <Container>
         <Content>
-          <Title>Library</Title>
+          <Title>{deck.name}</Title>
           <Panel>
             <PanelLeft>
-              <NewDeckContainer>
-                <Button name="new deck" />
-              </NewDeckContainer>
               <DeckContainer>
-                {decks?.data?.data.map((deck) => (
-                  <Decks
-                    key={deck.id}
-                    onClick={() => {
-                      Router.push(`decks/${deck.id}`);
-                    }}
-                  >
-                    <p>{deck.name}</p>
-                    <Cards
-                      size={20}
-                      style={{
-                        position: "absolute",
-                        right: 0,
-                        marginBottom: "5px",
-                      }}
-                      color="#F1DDAB"
-                    />
-                  </Decks>
-                ))}
+                <MiniCard>{deck.id}</MiniCard>
               </DeckContainer>
             </PanelLeft>
             <PanelCenter>
@@ -160,10 +144,8 @@ function Component() {
                 <InputHome register={register} />
                 <ButtonSearch
                   onClick={async () => {
-                    await listCards({
-                      column: column,
-                      filter: watch("filterValue"),
-                    });
+                    handleFilterCards(column, watch("filterValue"));
+                    // setCards(props.props.deck.cards);
                   }}
                   disabled={!watch("filterValue")}
                 >
@@ -172,7 +154,7 @@ function Component() {
                 <ClearButtonSearch
                   onClick={async () => {
                     resetField("filterValue");
-                    await listCards();
+                    setCards(props.props.deck.cards);
                   }}
                   disabled={!watch("filterValue")}
                 >
@@ -181,19 +163,23 @@ function Component() {
               </SearchContainer>
               <CardContainer>
                 <CardWrapper>
-                  {cards?.data?.data.map((card) => (
-                    <Card
-                      key={card.id}
-                      id={card.id}
-                      atk={card.atk}
-                      category={card.category}
-                      description={card.description}
-                      effect={card.effect}
-                      title={card.name}
-                      main={card.main_card}
-                      image={card.image_url}
-                    />
-                  ))}
+                  {cards ? (
+                    cards.map((card) => (
+                      <Card
+                        key={card.id}
+                        id={card.id}
+                        atk={card.atk}
+                        category={card.category}
+                        description={card.description}
+                        effect={card.effect}
+                        title={card.name}
+                        main={card.main_card}
+                        image={card.image_url}
+                      />
+                    ))
+                  ) : (
+                    <p>sem cards</p>
+                  )}
                 </CardWrapper>
               </CardContainer>
             </PanelCenter>
@@ -204,11 +190,11 @@ function Component() {
   );
 }
 
-export default function Home() {
+export default function Deck(props: any) {
   return (
     <DeckProvider>
       <CardProvider>
-        <Component />
+        <Component props={props} />
       </CardProvider>
     </DeckProvider>
   );
@@ -220,7 +206,13 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
     return checkAuth;
   }
 
+  const deck = await getAPIClient(ctx).get(
+    urls.deck.get(ctx.params?.deckId as string)
+  );
+
   return {
-    props: {},
+    props: {
+      deck: deck.data,
+    },
   };
 };

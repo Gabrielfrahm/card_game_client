@@ -81,10 +81,6 @@ export const PanelLeft = styled("div", {
   },
 });
 
-export const NewDeckContainer = styled("div", {
-  padding: "10px",
-});
-
 export const DeckContainer = styled("div", {
   maxHeight: "28rem",
   overflowY: "scroll",
@@ -170,6 +166,10 @@ export const CardWrapper = styled("div", {
   minWidth: "90%",
   maxHeight: "450px",
   overflowY: "scroll",
+
+  p: {
+    color: "$title",
+  },
 
   "@media(max-width: 1750px)": {
     maxWidth: "90%",
@@ -276,3 +276,5 @@ export const ClearButtonSearch = styled("button", {
     },
   },
 });
+
+export const MiniCard = styled("div", {});

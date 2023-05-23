@@ -1,9 +1,11 @@
+import { urls } from "@/@shared/constants/api";
 import { translateErrors } from "@/@shared/help/translation";
 import { FiltersParams, ICard, IListResponse } from "@/@shared/interfaces";
+import { getAPIClient } from "@/@shared/lib/http";
 import { IError } from "@/@shared/lib/http.error";
 import { cardServices } from "@/@shared/services";
 import { toastNotification } from "@/pages/components/toast";
-import { createContext, useEffect, useState } from "react";
+import { createContext, useCallback, useEffect, useState } from "react";
 
 type CardContextTypes = {
   listCards: (filtersParams?: FiltersParams) => Promise<void>;
@@ -14,24 +16,33 @@ type CardContextTypes = {
 export const CardContext = createContext({} as CardContextTypes);
 
 export const CardProvider = ({ children }: any) => {
-  const { list, get } = cardServices();
+  const { get } = cardServices();
   const [cards, setCards] = useState<IListResponse<ICard>>(
     {} as IListResponse<ICard>
   );
 
-  async function listCards(filtersParams?: FiltersParams) {
-    try {
-      const response = await list({ ...filtersParams });
-      console.log("FiltersParams", filtersParams);
-      setCards(response);
-    } catch (e) {
-      const error = e as IError;
-      toastNotification({
-        type: "error",
-        message: translateErrors(error.response.data.message),
-      });
-    }
-  }
+  const list = useCallback(
+    async (filters?: any): Promise<IListResponse<ICard>> => {
+      return getAPIClient().get(urls.card.list(), { params: filters });
+    },
+    []
+  );
+
+  const listCards = useCallback(
+    async (filtersParams?: FiltersParams) => {
+      try {
+        const response = await list({ ...filtersParams });
+        setCards(response);
+      } catch (e) {
+        const error = e as IError;
+        toastNotification({
+          type: "error",
+          message: translateErrors(error.response.data.message),
+        });
+      }
+    },
+    [list]
+  );
 
   async function getCard(id: string) {
     try {
