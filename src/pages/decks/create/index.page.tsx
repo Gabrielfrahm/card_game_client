@@ -1,6 +1,7 @@
-import { GetServerSideProps } from "next";
+import { DeckContext, DeckProvider } from "@/context/deckContext";
 
-import Header from "../components/header";
+import { CardContext, CardProvider } from "@/context/cardContext";
+import Header from "@/pages/components/header";
 import {
   ButtonDropMenu,
   CardContainer,
@@ -20,21 +21,13 @@ import {
   ClearButtonSearch,
   Decks,
 } from "./styles";
-import privateRoute from "@/@shared/help/private.route";
-
-import { Card } from "../components/card";
-
-import Button from "../components/button";
-
-import InputHome from "./components/input";
-import { useCallback, useContext, useEffect, useMemo, useState } from "react";
-
-import { CardContext, CardProvider } from "@/context/cardContext";
-import { FiltersParams } from "@/@shared/interfaces";
-import { Cards, CaretDown, MagnifyingGlass, Trash } from "phosphor-react";
+import Button from "@/pages/components/button";
+import { useCallback, useContext, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
-import { DeckContext, DeckProvider } from "@/context/deckContext";
-import Router from "next/router";
+import { FiltersParams } from "@/@shared/interfaces";
+import { CaretDown, MagnifyingGlass, Trash } from "phosphor-react";
+import InputHome from "@/pages/home/components/input";
+import { Card } from "@/pages/components/card";
 
 function Component() {
   const { cards, listCards } = useContext(CardContext);
@@ -71,33 +64,7 @@ function Component() {
           <Title>Library</Title>
           <Panel>
             <PanelLeft>
-              <NewDeckContainer>
-                <Button
-                  name="new deck"
-                  onClick={() => Router.push("/decks/create")}
-                />
-              </NewDeckContainer>
-              <DeckContainer>
-                {decks?.data?.data.map((deck) => (
-                  <Decks
-                    key={deck.id}
-                    onClick={() => {
-                      Router.push(`decks/${deck.id}`);
-                    }}
-                  >
-                    <p>{deck.name}</p>
-                    <Cards
-                      size={20}
-                      style={{
-                        position: "absolute",
-                        right: 0,
-                        marginBottom: "5px",
-                      }}
-                      color="#F1DDAB"
-                    />
-                  </Decks>
-                ))}
-              </DeckContainer>
+              <DeckContainer></DeckContainer>
             </PanelLeft>
             <PanelCenter>
               <SearchContainer>
@@ -207,7 +174,7 @@ function Component() {
   );
 }
 
-export default function Home() {
+export default function CreateDeck() {
   return (
     <DeckProvider>
       <CardProvider>
@@ -216,14 +183,3 @@ export default function Home() {
     </DeckProvider>
   );
 }
-
-export const getServerSideProps: GetServerSideProps = async (ctx) => {
-  const checkAuth = privateRoute(ctx, true);
-  if (checkAuth) {
-    return checkAuth;
-  }
-
-  return {
-    props: {},
-  };
-};
