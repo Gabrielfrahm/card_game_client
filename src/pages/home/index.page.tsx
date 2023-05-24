@@ -74,7 +74,12 @@ function Component() {
               <NewDeckContainer>
                 <Button
                   name="new deck"
-                  onClick={() => Router.push("/decks/create")}
+                  onClick={() =>
+                    Router.push({
+                      pathname: "/decks/management",
+                      query: { show: true },
+                    })
+                  }
                 />
               </NewDeckContainer>
               <DeckContainer>

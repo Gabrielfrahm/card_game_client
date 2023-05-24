@@ -12,12 +12,14 @@ import { IError } from "@/@shared/lib/http.error";
 import { toastNotification } from "@/pages/components/toast";
 import { createContext, useCallback, useContext, useState } from "react";
 import { AuthContext } from "../authContext";
+import { AxiosResponse } from "axios";
 
 type DeckContextTypes = {
   listDecks: (filtersParams?: FiltersParams) => Promise<void>;
   decks: IListResponse<IDeck>;
   getDeck: (id: string) => Promise<void>;
   deck: IDeck;
+  createDeck: (name: string) => Promise<AxiosResponse<any, any> | undefined>;
 };
 
 export const DeckContext = createContext({} as DeckContextTypes);
@@ -74,8 +76,27 @@ export const DeckProvider = ({ children }: any) => {
     [get]
   );
 
+  const createDeck = async (name: string) => {
+    try {
+      const deck = await getAPIClient().post(urls.deck.create(), {
+        name: name,
+        user_id: user.id,
+      });
+      setDeck(deck.data);
+      return deck;
+    } catch (e) {
+      const error = e as IError;
+      toastNotification({
+        type: "error",
+        message: error.response.data.message,
+      });
+    }
+  };
+
   return (
-    <DeckContext.Provider value={{ listDecks, decks, getDeck, deck }}>
+    <DeckContext.Provider
+      value={{ listDecks, decks, getDeck, deck, createDeck }}
+    >
       {children}
     </DeckContext.Provider>
   );

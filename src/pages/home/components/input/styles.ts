@@ -23,16 +23,6 @@ export const TextInput = styled("input", {
   margin: "5px",
   padding: "5px",
 
-  // "&:focus": {
-  // boxShadow: "0 0 10px 5px rgba(170, 164, 148, 1)",
-  // backgroundColor: "$backgroundCard",
-  // },
-
-  // "&:hover": {
-  //   boxShadow: "0 0 10px 5px rgba(170, 164, 148, 1)",
-  //   backgroundColor: "$backgroundCard",
-  // },
-
   variants: {
     content: {
       true: {

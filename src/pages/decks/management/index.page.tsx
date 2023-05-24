@@ -28,12 +28,17 @@ import { FiltersParams } from "@/@shared/interfaces";
 import { CaretDown, MagnifyingGlass, Trash } from "phosphor-react";
 import InputHome from "@/pages/home/components/input";
 import { Card } from "@/pages/components/card";
+import DeckModal from "../components/modal";
+import { useRouter } from "next/router";
 
 function Component() {
   const { cards, listCards } = useContext(CardContext);
   const { listDecks, decks } = useContext(DeckContext);
   const [isShow, setIsShow] = useState<boolean>(false);
+  const [isShowModal, setIsShowModal] = useState<boolean>(false);
+
   const { watch, register, resetField } = useForm();
+  const { query } = useRouter();
 
   const [column, setColumn] = useState<string>("name");
 
@@ -54,10 +59,12 @@ function Component() {
   useEffect(() => {
     handleListCards();
     handleListDecks();
-  }, [handleListCards, handleListDecks]);
+    setIsShowModal(query.show === "true");
+  }, [handleListCards, handleListDecks, query.show]);
 
   return (
     <>
+      <DeckModal isShow={query.show === "true"} />
       <Header />
       <Container>
         <Content>
