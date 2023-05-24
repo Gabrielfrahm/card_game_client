@@ -7,9 +7,9 @@ export const Container = styled("div", {
   position: "fixed",
   zIndex: 999,
   width: "100vw",
-  height: "calc(100vh - 5rem)",
-  overflow: "auto",
-  backgroundColor: "rgba(0,0,0,0.4)",
+  height: "100%",
+
+  backgroundColor: "rgba(0,0,0,0.6)",
 
   variants: {
     isShow: {
@@ -46,6 +46,11 @@ export const Content = styled("div", {
   height: "20rem",
   border: "4px solid $details",
   backgroundColor: "$backgroundCard",
+
+  "@media(max-width: 425px)": {
+    maxWidth: "90%",
+    maxHeight: "285px",
+  },
 });
 
 export const Title = styled("h1", {
@@ -54,6 +59,10 @@ export const Title = styled("h1", {
   fontWeight: "lighter",
   position: "absolute",
   top: 30,
+
+  "@media(max-width: 425px)": {
+    fontSize: "$md",
+  },
 });
 
 export const Form = styled("form", {
@@ -73,6 +82,10 @@ export const Form = styled("form", {
 
   button: {
     marginTop: "10px",
+  },
+
+  "@media(max-width: 425px)": {
+    width: "80%",
   },
 });
 

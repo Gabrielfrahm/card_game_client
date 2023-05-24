@@ -10,16 +10,23 @@ import { getAPIClient } from "@/@shared/lib/http";
 import { IError } from "@/@shared/lib/http.error";
 
 import { toastNotification } from "@/pages/components/toast";
-import { createContext, useCallback, useContext, useState } from "react";
+import {
+  Dispatch,
+  SetStateAction,
+  createContext,
+  useCallback,
+  useContext,
+  useState,
+} from "react";
 import { AuthContext } from "../authContext";
-import { AxiosResponse } from "axios";
 
 type DeckContextTypes = {
   listDecks: (filtersParams?: FiltersParams) => Promise<void>;
   decks: IListResponse<IDeck>;
   getDeck: (id: string) => Promise<void>;
   deck: IDeck;
-  createDeck: (name: string) => Promise<AxiosResponse<any, any> | undefined>;
+  createDeck: (name: string) => Promise<IDeck | undefined>;
+  setDeck: Dispatch<SetStateAction<IDeck>>;
 };
 
 export const DeckContext = createContext({} as DeckContextTypes);
@@ -43,6 +50,17 @@ export const DeckProvider = ({ children }: any) => {
     const deck = await getAPIClient().get(urls.deck.get(id));
     return deck.data;
   }, []);
+
+  const create = useCallback(
+    async function create(name: string): Promise<IDeck> {
+      const deck = await getAPIClient().post(urls.deck.create(), {
+        name: name,
+        user_id: user.id,
+      });
+      return deck.data;
+    },
+    [user.id]
+  );
 
   const listDecks = useCallback(
     async (filtersParams?: FiltersParams) => {
@@ -78,12 +96,9 @@ export const DeckProvider = ({ children }: any) => {
 
   const createDeck = async (name: string) => {
     try {
-      const deck = await getAPIClient().post(urls.deck.create(), {
-        name: name,
-        user_id: user.id,
-      });
-      setDeck(deck.data);
-      return deck;
+      const response = await create(name);
+      setDeck(response);
+      return response;
     } catch (e) {
       const error = e as IError;
       toastNotification({
@@ -95,7 +110,7 @@ export const DeckProvider = ({ children }: any) => {
 
   return (
     <DeckContext.Provider
-      value={{ listDecks, decks, getDeck, deck, createDeck }}
+      value={{ listDecks, decks, getDeck, deck, createDeck, setDeck }}
     >
       {children}
     </DeckContext.Provider>

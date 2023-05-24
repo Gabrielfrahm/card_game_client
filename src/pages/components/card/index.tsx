@@ -41,6 +41,7 @@ export type typeProps = {
   title: string;
   description: string;
   main: boolean;
+  hiddenTooltip?: boolean;
 };
 
 export function Card({
@@ -52,6 +53,7 @@ export function Card({
   image,
   title,
   main,
+  hiddenTooltip,
 }: typeProps) {
   // document.addEventListener("contextmenu", (event) => event.preventDefault());
 
@@ -62,17 +64,20 @@ export function Card({
           margin: "5px 30px 15px 0",
         }}
       >
-        <span
-          onMouseDown={(e) =>
-            e.buttons === 2 ? Router.push(`/cards/${id}`) : null
-          }
-        >
-          {description}{" "}
-          <TooltipContainer>
-            more info
-            <Image src={RightClick} width={20} height={20} alt="" />
-          </TooltipContainer>
-        </span>
+        {!hiddenTooltip ? (
+          <span
+            onMouseDown={(e) =>
+              e.buttons === 2 ? Router.push(`/cards/${id}`) : null
+            }
+          >
+            {description}{" "}
+            <TooltipContainer>
+              more info
+              <Image src={RightClick} width={20} height={20} alt="" />
+            </TooltipContainer>
+          </span>
+        ) : null}
+
         <ContainerBorderImage>
           <Atk>{atk}</Atk>
           {main ? (

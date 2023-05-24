@@ -15,8 +15,10 @@ import {
 } from "./styled";
 import Button from "@/pages/components/button";
 import { DeckContext, DeckProvider } from "@/context/deckContext";
+import { IDeck } from "@/@shared/interfaces";
 type ModalProps = {
   isShow: boolean;
+  createDeck: (name: string) => Promise<IDeck | undefined>;
 };
 
 const deckFormSchema = z.object({
@@ -24,23 +26,22 @@ const deckFormSchema = z.object({
     .string()
     .trim()
     .min(3, { message: "name must be at least 3 characters long." })
-    .max(40, { message: "name can be a maximum of 40 characters." }),
+    .max(15, { message: "name can be a maximum of 15 characters." }),
 });
 
 type DeckFormData = z.infer<typeof deckFormSchema>;
 
 function Component(props: any) {
   const [visible, setVisible] = useState<boolean>(true);
-  const { createDeck } = useContext(DeckContext);
+
   const {
     register,
-    watch,
     handleSubmit,
-    formState: { errors, isSubmitting },
+    formState: { errors },
   } = useForm<DeckFormData>({ resolver: zodResolver(deckFormSchema) });
 
   const onSubmit = async (data: DeckFormData) => {
-    await createDeck(data.name);
+    await props.createDeck(data.name);
     setVisible(!visible);
   };
 
@@ -65,10 +66,10 @@ function Component(props: any) {
   );
 }
 
-export default function DeckModal({ isShow }: ModalProps) {
+export default function DeckModal({ isShow, createDeck }: ModalProps) {
   return (
     <DeckProvider>
-      <Component isShow={isShow} />
+      <Component isShow={isShow} createDeck={createDeck} />
     </DeckProvider>
   );
 }

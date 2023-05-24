@@ -1,6 +1,7 @@
 import { styled } from "@stitches/react";
 
 import borderImg from "../../../assets/panel/border.png";
+import { CaretLeft } from "phosphor-react";
 
 export const Container = styled("div", {
   width: "100vw",
@@ -274,5 +275,13 @@ export const ClearButtonSearch = styled("button", {
         },
       },
     },
+  },
+});
+
+export const Back = styled(CaretLeft, {
+  color: "#89826F",
+
+  "&:hover": {
+    cursor: "pointer",
   },
 });
