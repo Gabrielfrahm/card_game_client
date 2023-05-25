@@ -13,5 +13,6 @@ export const urls = {
     list: (user_id: string): string => `/decks/${user_id}`,
     get: (id: string): string => `/decks/one/${id}`,
     create: (): string => "/decks",
+    update: (id: string) => `/decks/${id}`,
   },
 };

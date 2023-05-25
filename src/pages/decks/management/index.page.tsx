@@ -37,7 +37,7 @@ import {
 
 function Component() {
   const { cards, listCards } = useContext(CardContext);
-  const { createDeck, deck } = useContext(DeckContext);
+  const { createDeck, deck, updateDeck } = useContext(DeckContext);
   const [column, setColumn] = useState<string>("name");
   const [isShow, setIsShow] = useState<boolean>(false);
   const [isShowModal, setIsShowModal] = useState<boolean>(false);
@@ -69,6 +69,13 @@ function Component() {
     setCardsSelected(findCard);
   };
 
+  const handleUpdateDeck = async () => {
+    await updateDeck({
+      id: deck.id,
+      cards: cardsSelected.map((item) => item.id),
+    });
+  };
+
   useEffect(() => {
     handleListCards();
     setIsShowModal(query.show === "true");
@@ -94,6 +101,7 @@ function Component() {
                   />
                 ))}
               </DeckContainer>
+              <Button onClick={() => handleUpdateDeck()} name="Save" />
             </PanelLeft>
             <PanelCenter>
               <SearchContainer>

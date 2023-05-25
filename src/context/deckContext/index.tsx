@@ -19,6 +19,7 @@ import {
   useState,
 } from "react";
 import { AuthContext } from "../authContext";
+import Router from "next/router";
 
 type DeckContextTypes = {
   listDecks: (filtersParams?: FiltersParams) => Promise<void>;
@@ -27,6 +28,19 @@ type DeckContextTypes = {
   deck: IDeck;
   createDeck: (name: string) => Promise<IDeck | undefined>;
   setDeck: Dispatch<SetStateAction<IDeck>>;
+  updateDeck: ({
+    id,
+    cards,
+    main_card_id,
+    name,
+  }: DeckUpdateProps) => Promise<void>;
+};
+
+type DeckUpdateProps = {
+  id: string;
+  name?: string;
+  main_card_id?: string;
+  cards?: string[];
 };
 
 export const DeckContext = createContext({} as DeckContextTypes);
@@ -61,6 +75,20 @@ export const DeckProvider = ({ children }: any) => {
     },
     [user.id]
   );
+
+  const update = useCallback(async function update({
+    id,
+    name,
+    main_card_id,
+    cards,
+  }: DeckUpdateProps): Promise<void> {
+    await getAPIClient().put(urls.deck.update(id), {
+      name,
+      main_card_id,
+      cards,
+    });
+  },
+  []);
 
   const listDecks = useCallback(
     async (filtersParams?: FiltersParams) => {
@@ -108,9 +136,40 @@ export const DeckProvider = ({ children }: any) => {
     }
   };
 
+  const updateDeck = async ({
+    id,
+    cards,
+    main_card_id,
+    name,
+  }: DeckUpdateProps) => {
+    try {
+      await update({
+        id,
+        cards,
+        main_card_id,
+        name,
+      });
+      Router.push("/home");
+    } catch (e) {
+      const error = e as IError;
+      toastNotification({
+        type: "error",
+        message: error.response.data.message,
+      });
+    }
+  };
+
   return (
     <DeckContext.Provider
-      value={{ listDecks, decks, getDeck, deck, createDeck, setDeck }}
+      value={{
+        listDecks,
+        decks,
+        getDeck,
+        deck,
+        createDeck,
+        setDeck,
+        updateDeck,
+      }}
     >
       {children}
     </DeckContext.Provider>
