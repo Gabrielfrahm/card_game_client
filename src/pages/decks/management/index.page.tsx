@@ -62,13 +62,22 @@ function Component() {
 
   const handleSelectedCard = async (card: ICard) => {
     const checkCard = cardsSelected.find((item) => item.id === card.id);
-    if (!checkCard) {
-      setCardsSelected([...cardsSelected, card]);
+    const checkMainCard = cardsSelected.find((item) => item.main_card === true);
+
+    if(checkMainCard){
+      toastNotification({ type: "info", message: "the deck already have main card" });
     }
 
-    if (checkCard) {
-      toastNotification({ type: "info", message: "card already selected" });
+    if(!checkMainCard){
+      if (!checkCard) {
+        setCardsSelected([...cardsSelected, card]);
+      }
+
+      if (checkCard) {
+        toastNotification({ type: "info", message: "card already selected" });
+      }
     }
+
   };
 
   const handleRemoveSelectedCard = async (card: ICard) => {
@@ -225,7 +234,9 @@ function Component() {
   );
 }
 
-export default function CreateDeck() {
+
+
+export default function ManagementDeck() {
   return (
     <DeckProvider>
       <CardProvider>

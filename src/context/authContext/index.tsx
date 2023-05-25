@@ -44,7 +44,7 @@ export const AuthProvider = ({ children }: any) => {
 
       api.defaults.headers["Authorization"] = `Bearer ${data.token}`;
 
-      setUser(user);
+      setUser(data.user);
 
       toastNotification({
         type: "success",
