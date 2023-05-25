@@ -39,15 +39,14 @@ export const CardContainer = styled("div", {
 });
 
 export const DescriptionContainer = styled("div", {
-  display: "flex",
-  justifyContent: "center",
-  alignItems: "center",
-  minWidth: "28.125rem",
-  minHeight: "17rem",
+  padding: '0 20px',
+  maxWidth: "28.125rem",
+  maxHeight: "17rem",
   backgroundSize: "cover",
   backgroundColor: "#89826F",
   border: "4px solid #D3C39A",
   borderRadius: "5px",
+  overflowY: 'scroll',
 
   "@media(max-width: 768px)": {
     minWidth: "22rem",
@@ -58,6 +57,7 @@ export const DescriptionContainer = styled("div", {
 export const Description = styled("p", {
   fontSize: "$2xl",
   maxWidth: "400px",
+  maxHeight: '400px',
   fontWeight: "lighter",
   fontFamily: "monospace",
   color: "$text",

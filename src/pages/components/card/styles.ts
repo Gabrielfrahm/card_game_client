@@ -16,10 +16,15 @@ export const Container = styled("div", {
     visibility: "hidden",
     backgroundColor: "#000",
     color: "#FFF",
-    padding: " 10px 10px",
+    padding: " 20px 20px",
     width: "200px",
+    height:'250px',
     fontFamily: "monospace",
     fontSize: "$md",
+    overflowY: 'scroll',
+    border: '4px solid $details',
+    opacity: '0',
+    transition: 'opacity 1s',
 
     "@media(max-width: 768px)": {
       width: "150px",
@@ -33,10 +38,9 @@ export const Container = styled("div", {
     span: {
       visibility: "visible",
       opacity: "1",
-      bottom: "100px",
-      left: "50px",
-      zIndex: "999",
-      borderImage: `url(${borderImg.src})  8 fill / 8px`,
+      bottom: '0',
+      left: "100px",
+      zIndex: 999,
 
       "@media(max-width: 768px)": {
         left: "25px",
@@ -202,9 +206,13 @@ export const Title = styled("h2", {
 export const Description = styled("p", {
   fontSize: "$ssm",
   maxWidth: "200px",
+
   fontFamily: "monospace",
   color: "$text",
   textAlign: "center",
+  whiteSpace: "nowrap",
+  overflow: "hidden",
+  textOverflow: "ellipsis",
 
   "@media(max-width: 1750px)": {
     maxWidth: "150px",
@@ -226,4 +234,5 @@ export const TooltipContainer = styled("div", {
   justifyContent: "center",
   alignItems: "center",
   fontSize: "$ssm",
+  zIndex: 999,
 });
