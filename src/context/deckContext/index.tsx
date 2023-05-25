@@ -47,7 +47,7 @@ export const DeckContext = createContext({} as DeckContextTypes);
 
 export const DeckProvider = ({ children }: any) => {
   const { user } = useContext(AuthContext);
-  console.log('user', user)
+
 
   const [decks, setDecks] = useState<IListResponse<IDeck>>(
     {} as IListResponse<IDeck>
