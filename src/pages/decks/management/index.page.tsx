@@ -37,7 +37,7 @@ import {
 
 function Component() {
   const { cards, listCards } = useContext(CardContext);
-  const { createDeck, deck, updateDeck } = useContext(DeckContext);
+  const { createDeck, deck, updateDeck, getDeck } = useContext(DeckContext);
   const [column, setColumn] = useState<string>("name");
   const [isShow, setIsShow] = useState<boolean>(false);
   const [isShowModal, setIsShowModal] = useState<boolean>(false);
@@ -45,6 +45,13 @@ function Component() {
 
   const { watch, register, resetField } = useForm();
   const { query } = useRouter();
+
+  const handleGetDeck = useCallback(
+    async (id: string) => {
+      const deck = await getDeck(id)
+      setCardsSelected(deck?.cards as ICard[])
+    }, [getDeck]
+  )
 
   const handleListCards = useCallback(
     async (filters?: FiltersParams) => {
@@ -76,10 +83,15 @@ function Component() {
     });
   };
 
+
+
   useEffect(() => {
     handleListCards();
     setIsShowModal(query.show === "true");
-  }, [handleListCards, query.show]);
+    if(query.id){
+      handleGetDeck(`${query.id}`)
+    }
+  }, [handleListCards, handleGetDeck ,query.show, query.id ]);
 
   return (
     <>
@@ -93,7 +105,7 @@ function Component() {
             <PanelLeft>
               <TitleCard>{deck.name}</TitleCard>
               <DeckContainer>
-                {cardsSelected.map((card: ICard) => (
+                {cardsSelected?.map((card: ICard) => (
                   <TooltipCustom
                     onClick={() => handleRemoveSelectedCard(card)}
                     cardProps={card}

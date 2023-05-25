@@ -24,7 +24,7 @@ import Router from "next/router";
 type DeckContextTypes = {
   listDecks: (filtersParams?: FiltersParams) => Promise<void>;
   decks: IListResponse<IDeck>;
-  getDeck: (id: string) => Promise<void>;
+  getDeck: (id: string) => Promise<IDeck | undefined>;
   deck: IDeck;
   createDeck: (name: string) => Promise<IDeck | undefined>;
   setDeck: Dispatch<SetStateAction<IDeck>>;
@@ -111,6 +111,7 @@ export const DeckProvider = ({ children }: any) => {
       try {
         const response = await get(id);
         setDeck(response);
+        return response
       } catch (e) {
         const error = e as IError;
         toastNotification({

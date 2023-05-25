@@ -3,10 +3,10 @@ import { ICard } from "@/@shared/interfaces";
 import { CardProvider } from "@/context/cardContext";
 import { DeckContext, DeckProvider } from "@/context/deckContext";
 import { GetServerSideProps } from "next";
-import { useRouter } from "next/router";
+import Router, { useRouter } from "next/router";
 import { useCallback, useContext, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
-
+import Button from '@/pages/components/button'
 import Header from "../components/header";
 
 import { CaretDown, MagnifyingGlass, Trash } from "phosphor-react";
@@ -14,7 +14,7 @@ import InputHome from "../home/components/input";
 import { Card } from "../components/card";
 import { getAPIClient } from "@/@shared/lib/http";
 import { urls } from "@/@shared/constants/api";
-import Battle from "../../assets/battle.png";
+
 
 import {
   ButtonDropMenu,
@@ -102,6 +102,12 @@ function Component(props: any) {
                   <TooltipCustom {...card} key={card.id} />
                 ))}
               </DeckContainer>
+              <Button name="update" onClick={() => Router.push({
+                pathname: '/decks/management',
+                query: {
+                  id: deck.id
+                }
+              })}  />
             </PanelLeft>
             <PanelCenter>
               <SearchContainer>
