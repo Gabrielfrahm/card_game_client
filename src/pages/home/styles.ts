@@ -113,10 +113,11 @@ export const PanelCenter = styled("div", {
   display: "flex",
   flexDirection: "column",
   justifyContent: "stretch",
+  position: "relative",
   alignItems: "center",
   maxWidth: "75rem",
   minWidth: "75rem",
-  minHeight: "34.37rem",
+  maxHeight: "34.37rem",
   backgroundColor: "#1D1B18",
   borderImage: `url(${borderImg.src})  20 / 4px  `,
 
@@ -164,6 +165,8 @@ export const SearchContainer = styled("div", {
 export const CardContainer = styled("div", {
   display: "flex",
   justifyContent: "center",
+  alignItems: "center",
+  flexDirection: "column",
   height: "100%",
   maxWidth: "90%",
 });

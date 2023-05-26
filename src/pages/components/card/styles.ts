@@ -18,13 +18,13 @@ export const Container = styled("div", {
     color: "#FFF",
     padding: " 20px 20px",
     width: "200px",
-    height:'250px',
+    height: "250px",
     fontFamily: "monospace",
     fontSize: "$md",
-    overflowY: 'scroll',
-    border: '4px solid $details',
-    opacity: '0',
-    transition: 'opacity 1s',
+    overflowY: "scroll",
+    border: "4px solid $details",
+    opacity: "0",
+    transition: "opacity 1s",
 
     "@media(max-width: 768px)": {
       width: "150px",
@@ -38,7 +38,7 @@ export const Container = styled("div", {
     span: {
       visibility: "visible",
       opacity: "1",
-      bottom: '0',
+      bottom: "0",
       left: "100px",
       zIndex: 999,
 
@@ -92,7 +92,7 @@ export const Atk = styled("h1", {
   },
 });
 
-export const BorderImg = styled(Image, {
+export const BorderMainImg = styled(Image, {
   position: "absolute",
   top: "-14px",
   left: "-25px",
@@ -101,6 +101,17 @@ export const BorderImg = styled(Image, {
   "@media(max-width: 1440px)": {
     width: "100px",
     height: "100px",
+  },
+});
+export const BorderImg = styled(Image, {
+  position: "absolute",
+  top: "-14px",
+  left: "-25px",
+  zIndex: -1,
+
+  "@media(max-width: 1440px)": {
+    width: "60px",
+    height: "60px",
   },
 });
 

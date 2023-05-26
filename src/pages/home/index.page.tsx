@@ -42,6 +42,7 @@ import { Cards, CaretDown, MagnifyingGlass, Trash } from "phosphor-react";
 import { useForm } from "react-hook-form";
 import { DeckContext, DeckProvider } from "@/context/deckContext";
 import Router from "next/router";
+import Pagination from "../components/pagination";
 
 function Component() {
   const { cards, listCards } = useContext(CardContext);
@@ -54,28 +55,12 @@ function Component() {
 
   const handleListCards = useCallback(
     async (filters?: FiltersParams) => {
-      await listCards(filters);
-    },
-    [listCards]
-  );
-
-  const handleOffset = useCallback(async () => {
-    let off = 10;
-    return off + 10;
-  }, []);
-
-  const handleMoreCars = useCallback(
-    async (filters?: FiltersParams) => {
-      console.log(column);
       await listCards({
         ...filters,
-        column: column,
-        filter: watch("filterValue"),
-        per_page: String(await handleOffset()),
+        per_page: "9",
       });
-      await handleOffset();
     },
-    [listCards, handleOffset, column, watch]
+    [listCards]
   );
 
   const handleListDecks = useCallback(
@@ -85,23 +70,10 @@ function Component() {
     [listDecks]
   );
 
-  const handleScroll = useCallback(
-    async (e: any) => {
-      if (
-        ref.current?.clientHeight + e.target.scrollTop >=
-        e.target.scrollHeight
-      ) {
-        await handleMoreCars();
-      }
-    },
-    [handleMoreCars]
-  );
-
   useEffect(() => {
     handleListCards();
     handleListDecks();
-    ref.current?.addEventListener("scroll", handleScroll);
-  }, [handleListCards, handleListDecks, handleScroll]);
+  }, [handleListCards, handleListDecks]);
 
   return (
     <>
@@ -109,6 +81,7 @@ function Component() {
       <Container>
         <Content>
           <Title>Library</Title>
+
           <Panel>
             <PanelLeft>
               <NewDeckContainer>
@@ -217,13 +190,16 @@ function Component() {
                 <ClearButtonSearch
                   onClick={async () => {
                     resetField("filterValue");
-                    await listCards();
+                    await listCards({
+                      per_page: "9",
+                    });
                   }}
                   disabled={!watch("filterValue")}
                 >
                   <Trash color="#F1DDAB" />
                 </ClearButtonSearch>
               </SearchContainer>
+
               <CardContainer>
                 <CardWrapper ref={ref}>
                   {cards?.data?.data.map((card) => (
@@ -241,6 +217,17 @@ function Component() {
                   ))}
                 </CardWrapper>
               </CardContainer>
+              <Pagination
+                meta={cards?.data?.meta}
+                onClick={async (page: number) => {
+                  await listCards({
+                    column: column,
+                    filter: watch("filterValue"),
+                    page: `${page + 1}`,
+                    per_page: "9",
+                  });
+                }}
+              />
             </PanelCenter>
           </Panel>
         </Content>

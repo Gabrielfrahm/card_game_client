@@ -13,6 +13,7 @@ import {
   CategoryImageSword,
   CategoryImageRange,
   TooltipContainer,
+  BorderMainImg,
 } from "./styles";
 import borderMainImg from "../../../assets/border-card-main-detail.png";
 import borderImg from "../../../assets/border-card.png";
@@ -81,7 +82,7 @@ export function Card({
         <ContainerBorderImage>
           <Atk>{atk}</Atk>
           {main ? (
-            <BorderImg
+            <BorderMainImg
               src={borderMainImg}
               sizes="(max-width: 768px) 100vw,
              (max-width: 1200px) 50vw,
