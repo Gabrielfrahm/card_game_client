@@ -27,7 +27,14 @@ import { Card } from "../components/card";
 import Button from "../components/button";
 
 import InputHome from "./components/input";
-import { useCallback, useContext, useEffect, useMemo, useState } from "react";
+import {
+  useCallback,
+  useContext,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
 
 import { CardContext, CardProvider } from "@/context/cardContext";
 import { FiltersParams } from "@/@shared/interfaces";
@@ -39,16 +46,36 @@ import Router from "next/router";
 function Component() {
   const { cards, listCards } = useContext(CardContext);
   const { listDecks, decks } = useContext(DeckContext);
-  const [isShow, setIsShow] = useState<boolean>(false);
   const { watch, register, resetField } = useForm();
-
+  const [isShow, setIsShow] = useState<boolean>(false);
   const [column, setColumn] = useState<string>("name");
+
+  const ref = useRef<HTMLDivElement>(null);
 
   const handleListCards = useCallback(
     async (filters?: FiltersParams) => {
       await listCards(filters);
     },
     [listCards]
+  );
+
+  const handleOffset = useCallback(async () => {
+    let off = 10;
+    return off + 10;
+  }, []);
+
+  const handleMoreCars = useCallback(
+    async (filters?: FiltersParams) => {
+      console.log(column);
+      await listCards({
+        ...filters,
+        column: column,
+        filter: watch("filterValue"),
+        per_page: String(await handleOffset()),
+      });
+      await handleOffset();
+    },
+    [listCards, handleOffset, column, watch]
   );
 
   const handleListDecks = useCallback(
@@ -58,10 +85,23 @@ function Component() {
     [listDecks]
   );
 
+  const handleScroll = useCallback(
+    async (e: any) => {
+      if (
+        ref.current?.clientHeight + e.target.scrollTop >=
+        e.target.scrollHeight
+      ) {
+        await handleMoreCars();
+      }
+    },
+    [handleMoreCars]
+  );
+
   useEffect(() => {
     handleListCards();
     handleListDecks();
-  }, [handleListCards, handleListDecks]);
+    ref.current?.addEventListener("scroll", handleScroll);
+  }, [handleListCards, handleListDecks, handleScroll]);
 
   return (
     <>
@@ -118,6 +158,7 @@ function Component() {
                     <p
                       onClick={() => {
                         setColumn("name");
+                        resetField("filterValue");
                         setIsShow(!isShow);
                       }}
                     >
@@ -125,15 +166,8 @@ function Component() {
                     </p>
                     <p
                       onClick={() => {
-                        setColumn("number");
-                        setIsShow(!isShow);
-                      }}
-                    >
-                      Number
-                    </p>
-                    <p
-                      onClick={() => {
                         setColumn("category");
+                        resetField("filterValue");
                         setIsShow(!isShow);
                       }}
                     >
@@ -142,6 +176,7 @@ function Component() {
                     <p
                       onClick={() => {
                         setColumn("description");
+                        resetField("filterValue");
                         setIsShow(!isShow);
                       }}
                     >
@@ -150,6 +185,7 @@ function Component() {
                     <p
                       onClick={() => {
                         setColumn("atk");
+                        resetField("filterValue");
                         setIsShow(!isShow);
                       }}
                     >
@@ -158,6 +194,7 @@ function Component() {
                     <p
                       onClick={() => {
                         setColumn("effect");
+                        resetField("filterValue");
                         setIsShow(!isShow);
                       }}
                     >
@@ -188,7 +225,7 @@ function Component() {
                 </ClearButtonSearch>
               </SearchContainer>
               <CardContainer>
-                <CardWrapper>
+                <CardWrapper ref={ref}>
                   {cards?.data?.data.map((card) => (
                     <Card
                       key={card.id}
