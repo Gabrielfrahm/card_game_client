@@ -26,6 +26,7 @@ export const MiniCard = styled("div", {
   width: "15rem",
   height: "2rem",
   borderRadius: "3px",
+
   zIndex: 1,
 
   position: "relative",
@@ -50,6 +51,14 @@ export const MiniCard = styled("div", {
           cursor: "pointer",
           filter: "brightness(1.3)",
           border: "2px solid $details",
+        },
+      },
+      " ": {
+        border: "2px solid $backgroundCard",
+        backgroundColor: "$backgroundCard",
+        "&:hover": {
+          cursor: "pointer",
+          filter: "brightness(1.3)",
         },
       },
     },

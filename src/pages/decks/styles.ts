@@ -301,6 +301,15 @@ export const MiniCard = styled("div", {
           border: "2px solid $details",
         },
       },
+      blood: {
+        border: "2px solid #320000",
+        backgroundColor: "#320000",
+        "&:hover": {
+          cursor: "pointer",
+          filter: "brightness(1.3)",
+          border: "2px solid $details",
+        },
+      },
     },
   },
 });

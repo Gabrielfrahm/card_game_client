@@ -1,6 +1,5 @@
 import * as Tooltip from "@radix-ui/react-tooltip";
 import { TooltipContainer } from "./styles";
-import { Card } from ".";
 
 export type typeProps = {
   description: string;

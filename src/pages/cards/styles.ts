@@ -43,7 +43,7 @@ export const DescriptionContainer = styled("div", {
   maxWidth: "28.125rem",
   maxHeight: "17rem",
   backgroundSize: "cover",
-  backgroundColor: "#89826F",
+  backgroundColor: "$backgroundCard",
   border: "4px solid #D3C39A",
   borderRadius: "5px",
   overflowY: 'scroll',

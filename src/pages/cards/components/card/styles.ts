@@ -170,3 +170,11 @@ export const Description = styled("p", {
     textOverflow: "ellipsis",
   },
 });
+
+export const TooltipContainer = styled("div", {
+  display: "flex",
+  justifyContent: "center",
+  alignItems: "center",
+  fontSize: "$ssm",
+  zIndex: 999,
+});

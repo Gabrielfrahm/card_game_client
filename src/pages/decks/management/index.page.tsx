@@ -48,10 +48,11 @@ function Component() {
 
   const handleGetDeck = useCallback(
     async (id: string) => {
-      const deck = await getDeck(id)
-      setCardsSelected(deck?.cards as ICard[])
-    }, [getDeck]
-  )
+      const deck = await getDeck(id);
+      setCardsSelected(deck?.cards as ICard[]);
+    },
+    [getDeck]
+  );
 
   const handleListCards = useCallback(
     async (filters?: FiltersParams) => {
@@ -62,13 +63,20 @@ function Component() {
 
   const handleSelectedCard = async (card: ICard) => {
     const checkCard = cardsSelected.find((item) => item.id === card.id);
-    const checkMainCard = cardsSelected.find((item) => item.main_card === true);
+    let checkMainCard;
 
-    if(checkMainCard){
-      toastNotification({ type: "info", message: "the deck already have main card" });
+    if (card.main_card) {
+      checkMainCard = cardsSelected.find((item) => item.main_card === true);
     }
 
-    if(!checkMainCard){
+    if (checkMainCard) {
+      toastNotification({
+        type: "info",
+        message: "the deck already have main card",
+      });
+    }
+
+    if (!checkMainCard) {
       if (!checkCard) {
         setCardsSelected([...cardsSelected, card]);
       }
@@ -77,7 +85,6 @@ function Component() {
         toastNotification({ type: "info", message: "card already selected" });
       }
     }
-
   };
 
   const handleRemoveSelectedCard = async (card: ICard) => {
@@ -92,15 +99,13 @@ function Component() {
     });
   };
 
-
-
   useEffect(() => {
     handleListCards();
     setIsShowModal(query.show === "true");
-    if(query.id){
-      handleGetDeck(`${query.id}`)
+    if (query.id) {
+      handleGetDeck(`${query.id}`);
     }
-  }, [handleListCards, handleGetDeck ,query.show, query.id ]);
+  }, [handleListCards, handleGetDeck, query.show, query.id]);
 
   return (
     <>
@@ -233,8 +238,6 @@ function Component() {
     </>
   );
 }
-
-
 
 export default function ManagementDeck() {
   return (
