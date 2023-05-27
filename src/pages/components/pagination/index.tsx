@@ -1,4 +1,5 @@
-import { Container, Content } from "./styles";
+import { CaretLeft, CaretRight } from "phosphor-react";
+import { ButtonPage, Container, Left, Right } from "./styles";
 
 type PaginationProps = {
   meta: {
@@ -17,19 +18,39 @@ export default function Pagination({ meta, onClick }: PaginationProps) {
     pages.push(i);
   }
 
-  console.log(pages);
-
   return (
     <Container>
-      <Content>
-        {pages.map((page, index) => {
-          return (
-            <button key={index} onClick={() => onClick(index)}>
-              {page}
-            </button>
+      <Left
+        onClick={() => {
+          onClick(
+            meta?.current_page !== 1
+              ? meta?.current_page - 1
+              : meta?.current_page
           );
-        })}
-      </Content>
+        }}
+        size={30}
+      />
+      {pages.map((page, index) => {
+        return (
+          <ButtonPage
+            selected={index + 1 === meta?.current_page}
+            key={index}
+            onClick={() => onClick(index + 1)}
+          >
+            {page}
+          </ButtonPage>
+        );
+      })}
+      <Right
+        onClick={() => {
+          onClick(
+            meta?.current_page < meta?.last_page
+              ? meta?.current_page + 1
+              : meta?.current_page
+          );
+        }}
+        size={30}
+      />
     </Container>
   );
 }

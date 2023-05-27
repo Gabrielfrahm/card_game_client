@@ -223,7 +223,7 @@ function Component() {
                   await listCards({
                     column: column,
                     filter: watch("filterValue"),
-                    page: `${page + 1}`,
+                    page: `${page}`,
                     per_page: "9",
                   });
                 }}
