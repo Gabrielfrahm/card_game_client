@@ -291,5 +291,6 @@ export const Back = styled(CaretLeft, {
 
   "&:hover": {
     cursor: "pointer",
+    filter: "brightness(2)",
   },
 });

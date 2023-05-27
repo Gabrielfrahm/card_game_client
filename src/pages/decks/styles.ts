@@ -319,6 +319,14 @@ export const MiniCard = styled("div", {
           border: "2px solid $details",
         },
       },
+      " ": {
+        border: "2px solid $backgroundCard",
+        backgroundColor: "$backgroundCard",
+        "&:hover": {
+          cursor: "pointer",
+          filter: "brightness(1.3)",
+        },
+      },
     },
   },
 });

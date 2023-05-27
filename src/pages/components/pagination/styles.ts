@@ -42,6 +42,7 @@ export const Left = styled(CaretLeft, {
   color: "$details",
   "&:hover": {
     cursor: "pointer",
+    filter: "brightness(2)",
   },
 });
 
@@ -49,5 +50,6 @@ export const Right = styled(CaretRight, {
   color: "$details",
   "&:hover": {
     cursor: "pointer",
+    filter: "brightness(2)",
   },
 });
