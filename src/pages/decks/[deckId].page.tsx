@@ -6,7 +6,7 @@ import { GetServerSideProps } from "next";
 import Router, { useRouter } from "next/router";
 import { useCallback, useContext, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
-import Button from '@/pages/components/button'
+import Button from "@/pages/components/button";
 import Header from "../components/header";
 
 import { CaretDown, MagnifyingGlass, Trash } from "phosphor-react";
@@ -14,7 +14,6 @@ import InputHome from "../home/components/input";
 import { Card } from "../components/card";
 import { getAPIClient } from "@/@shared/lib/http";
 import { urls } from "@/@shared/constants/api";
-
 
 import {
   ButtonDropMenu,
@@ -41,6 +40,7 @@ import {
   Back,
 } from "./styles";
 import TooltipCustom from "./tooltip";
+import Pagination from "../components/pagination";
 
 function Component(props: any) {
   const router = useRouter();
@@ -102,12 +102,17 @@ function Component(props: any) {
                   <TooltipCustom {...card} key={card.id} />
                 ))}
               </DeckContainer>
-              <Button name="update" onClick={() => Router.push({
-                pathname: '/decks/management',
-                query: {
-                  id: deck.id
+              <Button
+                name="update"
+                onClick={() =>
+                  Router.push({
+                    pathname: "/decks/management",
+                    query: {
+                      id: deck.id,
+                    },
+                  })
                 }
-              })}  />
+              />
             </PanelLeft>
             <PanelCenter>
               <SearchContainer>
@@ -210,6 +215,17 @@ function Component(props: any) {
                   )}
                 </CardWrapper>
               </CardContainer>
+              {/* <Pagination
+                meta={cards?.data?.meta}
+                onClick={async (page: number) => {
+                  await listCards({
+                    column: column,
+                    filter: watch("filterValue"),
+                    page: `${page}`,
+                    per_page: "9",
+                  });
+                }}
+              /> */}
             </PanelCenter>
           </Panel>
         </Content>

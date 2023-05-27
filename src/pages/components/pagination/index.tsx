@@ -1,4 +1,3 @@
-import { CaretLeft, CaretRight } from "phosphor-react";
 import { ButtonPage, Container, Left, Right } from "./styles";
 
 type PaginationProps = {
