@@ -294,3 +294,9 @@ export const Back = styled(CaretLeft, {
     filter: "brightness(2)",
   },
 });
+
+export const NumberCardsContainer = styled("div", {
+  display: "flex",
+  justifyContent: "center",
+  alignItems: "center",
+});

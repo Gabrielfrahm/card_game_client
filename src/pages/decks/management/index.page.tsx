@@ -33,8 +33,10 @@ import {
   Title,
   ButtonSearch,
   ClearButtonSearch,
+  NumberCardsContainer,
 } from "./styles";
 import Pagination from "@/pages/components/pagination";
+import { type } from "os";
 
 function Component() {
   const { cards, listCards } = useContext(CardContext);
@@ -43,6 +45,9 @@ function Component() {
   const [isShow, setIsShow] = useState<boolean>(false);
   const [isShowModal, setIsShowModal] = useState<boolean>(false);
   const [cardsSelected, setCardsSelected] = useState<ICard[]>([] as ICard[]);
+  const [swordCards, setSwordCards] = useState<number>(0);
+  const [mageCards, setMageCards] = useState<number>(0);
+  const [rangeCards, setRangeCards] = useState<number>(0);
 
   const { watch, register, resetField } = useForm();
   const { query } = useRouter();
@@ -51,13 +56,34 @@ function Component() {
     async (id: string) => {
       const deck = await getDeck(id);
       setCardsSelected(deck?.cards as ICard[]);
+
+      let sword = 0;
+      let mage = 0;
+      let range = 0;
+      deck?.cards.forEach((item) => {
+        if (item.category === "sword") {
+          sword += 1;
+        }
+        if (item.category === "mage") {
+          mage += 1;
+        }
+        if (item.category === "range") {
+          range += 1;
+        }
+        setSwordCards(sword);
+        setMageCards(mage);
+        setRangeCards(range);
+      });
     },
     [getDeck]
   );
 
   const handleListCards = useCallback(
     async (filters?: FiltersParams) => {
-      await listCards(filters);
+      await listCards({
+        ...filters,
+        per_page: "9",
+      });
     },
     [listCards]
   );
@@ -80,6 +106,15 @@ function Component() {
     if (!checkMainCard) {
       if (!checkCard) {
         setCardsSelected([...cardsSelected, card]);
+        if (card.category === "sword") {
+          setSwordCards((old) => old + 1);
+        }
+        if (card.category === "mage") {
+          setMageCards((old) => old + 1);
+        }
+        if (card.category === "range") {
+          setRangeCards((old) => old + 1);
+        }
       }
 
       if (checkCard) {
@@ -91,6 +126,15 @@ function Component() {
   const handleRemoveSelectedCard = async (card: ICard) => {
     const findCard = cardsSelected.filter((item) => item.id !== card.id);
     setCardsSelected(findCard);
+    if (card.category === "sword") {
+      setSwordCards((old) => old - 1);
+    }
+    if (card.category === "mage") {
+      setMageCards((old) => old - 1);
+    }
+    if (card.category === "range") {
+      setRangeCards((old) => old - 1);
+    }
   };
 
   const handleUpdateDeck = async () => {
@@ -116,6 +160,11 @@ function Component() {
         <Back size={35} onClick={() => Router.back()} />
         <Content>
           <Title>Library</Title>
+          <NumberCardsContainer>
+            <p>{swordCards}</p>
+            <p>{mageCards}</p>
+            <p>{rangeCards}</p>
+          </NumberCardsContainer>
           <Panel>
             <PanelLeft>
               <TitleCard>{deck.name}</TitleCard>
@@ -144,6 +193,7 @@ function Component() {
                     <p
                       onClick={() => {
                         setColumn("name");
+                        resetField("filterValue");
                         setIsShow(!isShow);
                       }}
                     >
@@ -151,15 +201,8 @@ function Component() {
                     </p>
                     <p
                       onClick={() => {
-                        setColumn("number");
-                        setIsShow(!isShow);
-                      }}
-                    >
-                      Number
-                    </p>
-                    <p
-                      onClick={() => {
                         setColumn("category");
+                        resetField("filterValue");
                         setIsShow(!isShow);
                       }}
                     >
@@ -168,6 +211,7 @@ function Component() {
                     <p
                       onClick={() => {
                         setColumn("description");
+                        resetField("filterValue");
                         setIsShow(!isShow);
                       }}
                     >
@@ -176,6 +220,7 @@ function Component() {
                     <p
                       onClick={() => {
                         setColumn("atk");
+                        resetField("filterValue");
                         setIsShow(!isShow);
                       }}
                     >
@@ -184,6 +229,7 @@ function Component() {
                     <p
                       onClick={() => {
                         setColumn("effect");
+                        resetField("filterValue");
                         setIsShow(!isShow);
                       }}
                     >
