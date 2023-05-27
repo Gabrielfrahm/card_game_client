@@ -114,36 +114,44 @@ export const PanelCenter = styled("div", {
   display: "flex",
   flexDirection: "column",
   justifyContent: "stretch",
+  position: "relative",
   alignItems: "center",
+  maxWidth: "75rem",
   minWidth: "75rem",
-  minHeight: "34.37rem",
+  maxHeight: "34.37rem",
   backgroundColor: "#1D1B18",
   borderImage: `url(${borderImg.src})  20 / 4px  `,
 
   "@media(max-width: 1750px)": {
+    maxWidth: "55rem",
     minWidth: "55rem",
     minHeight: "30rem",
   },
 
   "@media(max-width: 1440px)": {
+    maxWidth: "55rem",
     minWidth: "55rem",
     minHeight: "24rem",
   },
 
   "@media(max-width: 1024px)": {
+    maxWidth: "35rem",
     minWidth: "35rem",
     minHeight: "24rem",
   },
 
   "@media(max-width: 768px)": {
+    maxWidth: "40rem",
     minWidth: "40rem",
   },
 
   "@media(max-width: 650px)": {
+    maxWidth: "30rem",
     minWidth: "30rem",
   },
 
   "@media(max-width: 400px)": {
+    maxWidth: "20rem",
     minWidth: "20rem",
   },
 });

@@ -34,6 +34,7 @@ import {
   ButtonSearch,
   ClearButtonSearch,
 } from "./styles";
+import Pagination from "@/pages/components/pagination";
 
 function Component() {
   const { cards, listCards } = useContext(CardContext);
@@ -231,6 +232,17 @@ function Component() {
                   ))}
                 </CardWrapper>
               </CardContainer>
+              <Pagination
+                meta={cards?.data?.meta}
+                onClick={async (page: number) => {
+                  await listCards({
+                    column: column,
+                    filter: watch("filterValue"),
+                    page: `${page}`,
+                    per_page: "9",
+                  });
+                }}
+              />
             </PanelCenter>
           </Panel>
         </Content>
