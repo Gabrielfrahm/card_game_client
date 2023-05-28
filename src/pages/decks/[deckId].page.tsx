@@ -41,6 +41,7 @@ import {
 } from "./styles";
 import TooltipCustom from "./tooltip";
 import Pagination from "../components/pagination";
+import TypeCard from "../components/typeCard";
 
 function Component(props: any) {
   const router = useRouter();
@@ -55,6 +56,9 @@ function Component(props: any) {
   const [column, setColumn] = useState<string>("name");
   const [cards, setCards] = useState<ICard[]>(props.props.deck.cards);
   const [sumPower, setSumPower] = useState<number>(0);
+  const [swordCards, setSwordCards] = useState<number>(0);
+  const [mageCards, setMageCards] = useState<number>(0);
+  const [rangeCards, setRangeCards] = useState<number>(0);
 
   const handleFilterCards = async (column: string, value: string) => {
     if (value) {
@@ -68,10 +72,27 @@ function Component(props: any) {
 
   const handleSumPowerDeck = useCallback(async () => {
     let sum = 0;
+
+    let sword = 0;
+    let mage = 0;
+    let range = 0;
+
     cards.forEach((card) => {
       sum += Number(card.atk);
+      if (card.category === "sword") {
+        sword += 1;
+      }
+      if (card.category === "mage") {
+        mage += 1;
+      }
+      if (card.category === "range") {
+        range += 1;
+      }
     });
     setSumPower(sum);
+    setSwordCards(sword);
+    setMageCards(mage);
+    setRangeCards(range);
   }, [cards]);
 
   const handleGetDeck = useCallback(
@@ -93,6 +114,7 @@ function Component(props: any) {
         <Back size={35} onClick={() => router.back()} />
         <Content>
           <Title>{deck.name}</Title>
+          <TypeCard mage={mageCards} sword={swordCards} range={rangeCards} />
           <Panel>
             <PanelLeft>
               <TitleCard>Cards</TitleCard>

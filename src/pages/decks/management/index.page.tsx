@@ -37,6 +37,7 @@ import {
 } from "./styles";
 import Pagination from "@/pages/components/pagination";
 import { type } from "os";
+import TypeCard from "@/pages/components/typeCard";
 
 function Component() {
   const { cards, listCards } = useContext(CardContext);
@@ -161,9 +162,7 @@ function Component() {
         <Content>
           <Title>Library</Title>
           <NumberCardsContainer>
-            <p>{swordCards}</p>
-            <p>{mageCards}</p>
-            <p>{rangeCards}</p>
+            <TypeCard mage={mageCards} sword={swordCards} range={rangeCards} />
           </NumberCardsContainer>
           <Panel>
             <PanelLeft>
