@@ -51,7 +51,7 @@ export const Atk = styled("h1", {
   },
 });
 
-export const BorderImg = styled(Image, {
+export const BorderMainImg = styled(Image, {
   position: "absolute",
   top: "-8px",
   left: "-25px",
@@ -60,6 +60,20 @@ export const BorderImg = styled(Image, {
   "@media(max-width: 1440px)": {
     width: "120px",
     height: "120px",
+    top: "-8px",
+    left: "-22px",
+  },
+});
+
+export const BorderImg = styled(Image, {
+  position: "absolute",
+  top: "-8px",
+  left: "-25px",
+  zIndex: -1,
+
+  "@media(max-width: 1440px)": {
+    width: "70px",
+    height: "70px",
     top: "-8px",
     left: "-22px",
   },

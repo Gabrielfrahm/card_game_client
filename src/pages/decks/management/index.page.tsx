@@ -106,6 +106,27 @@ function Component() {
 
     if (!checkMainCard) {
       if (!checkCard) {
+        if (card.category === "sword" && swordCards === 4) {
+          toastNotification({
+            type: "info",
+            message: "max cards for sword category is 4",
+          });
+          return;
+        }
+        if (card.category === "mage" && mageCards === 4) {
+          toastNotification({
+            type: "info",
+            message: "max cards for mage category is 4",
+          });
+          return;
+        }
+        if (card.category === "range" && rangeCards === 4) {
+          toastNotification({
+            type: "info",
+            message: "max cards for range category is 4",
+          });
+          return;
+        }
         setCardsSelected([...cardsSelected, card]);
         if (card.category === "sword") {
           setSwordCards((old) => old + 1);

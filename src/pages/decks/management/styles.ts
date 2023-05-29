@@ -6,9 +6,9 @@ import { CaretLeft } from "phosphor-react";
 export const Container = styled("div", {
   width: "100vw",
   height: "calc(100vh - 5rem)",
+
   marginTop: "5rem",
   backgroundColor: "$background",
-  padding: "30px",
 });
 
 export const Content = styled("div", {
@@ -16,6 +16,9 @@ export const Content = styled("div", {
   justifyContent: "center",
   alignItems: "center",
   flexDirection: "column",
+  width: "100%",
+  backgroundColor: "$background",
+  padding: "30px",
 });
 
 export const Title = styled("h1", {
@@ -49,32 +52,38 @@ export const PanelLeft = styled("div", {
   flexDirection: "column",
   minWidth: "16.56rem",
   minHeight: "34.37rem",
+  maxHeight: "34.37rem",
   backgroundColor: "#1D1B18",
   borderImage: `url(${borderImg.src})  20 / 4px  `,
 
   "@media(max-width: 1750px)": {
     minWidth: "13rem",
     minHeight: "30rem",
+    maxHeight: "30rem",
   },
 
   "@media(max-width: 1440px)": {
     minWidth: "11rem",
     minHeight: "24rem",
+    maxHeight: "24rem",
   },
 
   "@media(max-width: 1024px)": {
     minWidth: "11rem",
     minHeight: "24rem",
+    maxHeight: "24rem",
   },
 
   "@media(max-width: 768px)": {
     minWidth: "40rem",
     minHeight: "10rem",
+    maxHeight: "10rem",
   },
 
   "@media(max-width: 650px)": {
     minWidth: "30rem",
     minHeight: "10rem",
+    maxHeight: "10rem",
   },
 
   "@media(max-width: 400px)": {
@@ -288,7 +297,7 @@ export const ClearButtonSearch = styled("button", {
 
 export const Back = styled(CaretLeft, {
   color: "#89826F",
-
+  margin: "10px",
   "&:hover": {
     cursor: "pointer",
     filter: "brightness(2)",

@@ -18,6 +18,8 @@ import {
   Description,
   DescriptionContainer,
   Title,
+  WrapperDetails,
+  WrapperTitle,
 } from "./styles";
 
 function Component() {
@@ -61,9 +63,15 @@ function Component() {
               />
             )}
           </CardContainer>
-          <DescriptionContainer>
-            <Description>{card?.description}</Description>
-          </DescriptionContainer>
+          <WrapperDetails>
+            <WrapperTitle>Category : {card?.category}</WrapperTitle>
+            {card?.effect !== " " && (
+              <WrapperTitle>Effect : {card?.effect}</WrapperTitle>
+            )}
+            <DescriptionContainer>
+              <Description>{card?.description}</Description>
+            </DescriptionContainer>
+          </WrapperDetails>
         </Content>
       </Container>
     </>

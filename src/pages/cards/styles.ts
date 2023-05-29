@@ -6,13 +6,15 @@ export const Container = styled("div", {
   height: "calc(100vh - 5rem)",
   marginTop: "5rem",
   backgroundColor: "$background",
-  padding: "30px",
 });
 
 export const Content = styled("div", {
   display: "flex",
   justifyContent: "space-evenly",
   alignItems: "center",
+  width: "100%",
+  backgroundColor: "$background",
+  padding: "30px",
 
   "@media(max-width: 768px)": {
     flexDirection: "column",
@@ -38,15 +40,28 @@ export const CardContainer = styled("div", {
   minHeight: "37.5rem",
 });
 
+export const WrapperDetails = styled("div", {
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "space-around",
+  flexDirection: "column",
+});
+
+export const WrapperTitle = styled("p", {
+  fontSize: "$lg",
+  fontWeight: "lighter",
+  color: "$title",
+});
+
 export const DescriptionContainer = styled("div", {
-  padding: '0 20px',
+  padding: "0 20px",
   maxWidth: "28.125rem",
   maxHeight: "17rem",
   backgroundSize: "cover",
   backgroundColor: "$backgroundCard",
   border: "4px solid #D3C39A",
   borderRadius: "5px",
-  overflowY: 'scroll',
+  overflowY: "scroll",
 
   "@media(max-width: 768px)": {
     minWidth: "22rem",
@@ -57,7 +72,7 @@ export const DescriptionContainer = styled("div", {
 export const Description = styled("p", {
   fontSize: "$2xl",
   maxWidth: "400px",
-  maxHeight: '400px',
+  maxHeight: "400px",
   fontWeight: "lighter",
   fontFamily: "monospace",
   color: "$text",
@@ -71,7 +86,7 @@ export const Description = styled("p", {
 
 export const Back = styled(CaretLeft, {
   color: "#89826F",
-
+  margin: "10px",
   "&:hover": {
     cursor: "pointer",
   },

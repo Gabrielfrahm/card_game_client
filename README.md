@@ -1,38 +1,107 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+<h1 align="center">Elden Card Cliente</h1>
 
-## Getting Started
+<h1 align="center">
+    <a href="https://nextjs.org">💻 Next js</a>
+    <a href="https://nodejs.org">🔗 node</a>
+</h1>
 
-First, run the development server:
+<p align="center">🚀um projeto de estudo, aplicando as melhores praticas!</p>
+
+<p align="center">
+  <img src="https://img.shields.io/github/license/Gabrielfrahm/card_game_client"/>
+  <img src="https://img.shields.io/github/stars/Gabrielfrahm/card_game_client"/>
+  <img src="https://img.shields.io/github/forks/Gabrielfrahm/card_game_client"/>
+  <img src="https://img.shields.io/github/issues/Gabrielfrahm/card_game_client"/>
+</p>
+
+<h4 align="center">
+	🚧 Projeto  em construção...  🚧
+</h4>
+
+<p align="center">
+  <img src="https://user-images.githubusercontent.com/49403676/241785043-f5e8f1ec-5e2f-41da-b8db-eb15c04c9d5b.gif"/>
+</p>
+
+<p align="center">
+ <a href="#features">Features</a> •
+ <a href="#pre">Pre-requisitos</a> •
+ <a href="#tec">Tecnologias</a> •
+ <a href="#libs">Bibliotecas</a>
+ <a href="#licenc-a">Licença</a> •
+ <a href="#autor">Autor</a>
+</p>
+
+### Features
+
+- [x] ✔ Login .
+- [x] ✔ Criação de usuário.
+- [ ] Edição de usuário.
+- [ ] Exclusão de usuário.
+- [x] ✔ Listagem de Cartas.
+- [x] ✔ Criação de Deck.
+- [x] ✔ Atualização de Deck.
+- [x] ✔ Listagem de Deck.
+- [ ] exclusão do Deck.
+- [ ] Rank de Jogadores.
+- [ ] buscar partida.
+
+<hr>
+<p id="pre">
+Antes de começar, você vai precisar ter instalado em sua máquina as seguintes ferramentas:
+[Git](https://git-scm.com), [Node.js](https://nodejs.org/en/).
+Além disto é bom ter um editor para trabalhar com o código como [VSCode](https://code.visualstudio.com/)
+
+## lembrete : Você precisa ter o projeto da api em sua maquina.
+
+### 🚀 Rodando o front end (next js)
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
+# Clone este repositório
+$ git clone <https://github.com/Gabrielfrahm/card_game_client>
+
+# Acesse a pasta do projeto no terminal/cmd
+$ cd card_game_client
+
+# Instale as dependências
+$ npm install
+
+# Execute a aplicação em modo de desenvolvimento
+$ npm run dev
+
+# inciará na porta:3000 - acesse <http://localhost:3000>
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+</p>
+<hr>
+<p id="tec">
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
+🛠 Tecnologias
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
+As seguintes ferramentas foram usadas na construção do projeto:
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+- [Node.js](https://nodejs.org/en/)
+- [NEXT JS](https://nextjs.org)
+- [TypeScript](https://www.typescriptlang.org/)
+- [Vs code](https://code.visualstudio.com)
+</p>
+<hr>
+<p id="libs">
+📚Bibliotecas
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+Algumas bibliotecas usadas para o desenvolver do projeto.
 
-## Learn More
+- [stitches-js](https://stitches.dev) usado para fazer a estilizações personalizadas.
+- [react-hook-form](https://react-hook-form.com) usado para controlar os formulários.
+- [radix-ui](https://www.radix-ui.com) usado para obter alguns componentes já prontos.
+- [axios](https://www.npmjs.com/package/axios) usado para controlar as requisições do tipo http.
+- [nookies](https://www.npmjs.com/package/nookies) usado para controlar os cookies da web.
+- [phosphor-icons](https://phosphoricons.com) usado para ter ícones na aplicação.
+- [react-toastify](https://www.npmjs.com/package/react-toastify) usado para controlar o toast da aplicação.
+- [zod](https://www.npmjs.com/package/zod) usado para controlar as classes validadores entre regras.
+</p>
 
-To learn more about Next.js, take a look at the following resources:
+<hr id="licenc-a">
+📝 Licença
+Este projeto esta sobe a licença MIT.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+Feito por Gabriel Marques 👋🏽 Entre em contato!

@@ -7,7 +7,6 @@ export const Container = styled("div", {
   height: "calc(100vh - 5rem)",
   marginTop: "5rem",
   backgroundColor: "$background",
-  padding: "30px",
 });
 
 export const Content = styled("div", {
@@ -15,6 +14,9 @@ export const Content = styled("div", {
   justifyContent: "center",
   alignItems: "center",
   flexDirection: "column",
+  width: "100%",
+  backgroundColor: "$background",
+  padding: "30px",
 });
 
 export const Title = styled("h1", {

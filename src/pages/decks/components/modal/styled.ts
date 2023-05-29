@@ -26,7 +26,7 @@ export const Close = styled("span", {
   top: 5,
   color: "$details",
   float: "right",
-  fontSize: "28px",
+  fontSize: "18px",
   fontWeight: "bold",
 
   "&:hover": {

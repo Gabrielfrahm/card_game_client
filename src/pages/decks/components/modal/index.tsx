@@ -16,6 +16,7 @@ import {
 import Button from "@/pages/components/button";
 import { DeckContext, DeckProvider } from "@/context/deckContext";
 import { IDeck } from "@/@shared/interfaces";
+import Router from "next/router";
 type ModalProps = {
   isShow: boolean;
   createDeck: (name: string) => Promise<IDeck | undefined>;
@@ -52,6 +53,13 @@ function Component(props: any) {
   return (
     <Container isShow={visible}>
       <Content>
+        <Close
+          onClick={() => {
+            Router.replace("/home");
+          }}
+        >
+          x
+        </Close>
         <Title>Deck register</Title>
         <Form onSubmit={handleSubmit(onSubmit)}>
           <p>Name of Deck</p>
