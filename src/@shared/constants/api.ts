@@ -4,6 +4,8 @@ export const urls = {
   },
   user: {
     create: (): string => "/users",
+    update: (id: string) => `/users/${id}`,
+    get: (id: string) => `/users/${id}`,
   },
   card: {
     list: (): string => "/cards",

@@ -12,6 +12,7 @@ import battleImg from "@/assets/battle.png";
 import logoutImg from "@/assets/logout.png";
 import { useContext } from "react";
 import { AuthContext } from "@/context/authContext";
+import Router from "next/router";
 
 export default function Header() {
   const { signOut } = useContext(AuthContext);
@@ -28,6 +29,7 @@ export default function Header() {
               quality={100}
               priority
               alt=""
+              onClick={() => Router.push("/perfil")}
             />
             <IconMenu
               src={battleImg}

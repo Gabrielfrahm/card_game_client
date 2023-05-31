@@ -1,7 +1,13 @@
 import { TUser } from "@/@shared/interfaces";
 import { TRequest } from "@/@shared/services/authService/contracts";
 import { authServices } from "@/@shared/services";
-import { createContext, useEffect, useState } from "react";
+import {
+  Dispatch,
+  SetStateAction,
+  createContext,
+  useEffect,
+  useState,
+} from "react";
 import { destroyCookie, parseCookies, setCookie } from "nookies";
 import { api } from "@/@shared/lib/api";
 import { toastNotification } from "@/pages/components/toast";
@@ -14,6 +20,7 @@ type AuthContextType = {
   user: TUser;
   signIn: (data: TRequest) => Promise<void>;
   signOut: () => Promise<void>;
+  setUser: Dispatch<SetStateAction<TUser>>;
 };
 
 export const AuthContext = createContext({} as AuthContextType);
@@ -68,7 +75,9 @@ export const AuthProvider = ({ children }: any) => {
   }
 
   return (
-    <AuthContext.Provider value={{ user, isAuthenticated, signIn, signOut }}>
+    <AuthContext.Provider
+      value={{ user, isAuthenticated, signIn, signOut, setUser }}
+    >
       {children}
     </AuthContext.Provider>
   );

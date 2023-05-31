@@ -6,6 +6,12 @@ export type TRequest = {
   password: string;
 };
 
+export type TRequestUpdate = {
+  email?: string;
+  nick?: string;
+  password?: string;
+};
+
 export type TResponse = {
   data: TUser;
   status: number;
@@ -13,4 +19,6 @@ export type TResponse = {
 
 export type TMethod = {
   create: (data: TRequest) => Promise<TResponse>;
+  update(id: string, data: TRequestUpdate): Promise<void>;
+  get(id: string): Promise<TUser>;
 };
