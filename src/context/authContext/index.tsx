@@ -28,7 +28,7 @@ export const AuthContext = createContext({} as AuthContextType);
 export const AuthProvider = ({ children }: any) => {
   const [user, setUser] = useState<TUser>({} as TUser);
   const { login } = authServices();
-  const isAuthenticated = !!user.id;
+  const isAuthenticated = !!user?.id;
 
   useEffect(() => {
     const { ["eldencard"]: data } = parseCookies();

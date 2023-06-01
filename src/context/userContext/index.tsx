@@ -10,7 +10,7 @@ import { IError } from "@/@shared/lib/http.error";
 import { translateErrors } from "@/@shared/help/translation";
 import Router from "next/router";
 import { AuthContext } from "../authContext";
-import { destroyCookie, parseCookies } from "nookies";
+import { destroyCookie, parseCookies, setCookie } from "nookies";
 
 type UserContextType = {
   createUser: ({ email, name, password }: TRequest) => Promise<void>;
@@ -26,13 +26,30 @@ export const UserProvider = ({ children }: any) => {
   const getUser = useCallback(async () => {
     try {
       const getUser = await get(user.id);
-      console.log(getUser);
+
       const { ["eldencard"]: data } = parseCookies();
       if (data) {
-        const { user } = JSON.parse(data);
+        const { token } = JSON.parse(data);
+        destroyCookie(null, "eldencard");
+        setCookie(
+          undefined,
+          "eldencard",
+          JSON.stringify({
+            user: {
+              id: getUser.data.id,
+              email: getUser.data.email,
+              name: getUser.data.name,
+              email_confirmation: getUser.data.email_confirmation,
+            },
+            token,
+          }),
+          {
+            maxAge: 60 * 60 * 24 * 7, // 7 days
+          }
+        );
       }
 
-      setUser(getUser);
+      setUser(getUser.data!);
     } catch (e) {
       const error = e as IError;
       toastNotification({
@@ -40,7 +57,7 @@ export const UserProvider = ({ children }: any) => {
         message: translateErrors(error.response.data.message),
       });
     }
-  }, [get, setUser, user.id]);
+  }, [get, setUser, user?.id]);
 
   const updateUser = useCallback(
     async ({ email, nick, password }: TRequestUpdate) => {

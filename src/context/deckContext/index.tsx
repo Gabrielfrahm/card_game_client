@@ -34,6 +34,7 @@ type DeckContextTypes = {
     main_card_id,
     name,
   }: DeckUpdateProps) => Promise<void>;
+  deleteDecks: (id: string) => Promise<void>;
 };
 
 type DeckUpdateProps = {
@@ -47,7 +48,6 @@ export const DeckContext = createContext({} as DeckContextTypes);
 
 export const DeckProvider = ({ children }: any) => {
   const { user } = useContext(AuthContext);
-
 
   const [decks, setDecks] = useState<IListResponse<IDeck>>(
     {} as IListResponse<IDeck>
@@ -91,10 +91,16 @@ export const DeckProvider = ({ children }: any) => {
   },
   []);
 
+  const deleteDeck = useCallback(async function deleteDeck(
+    id: string
+  ): Promise<void> {
+    await getAPIClient().delete(urls.deck.delete(id));
+  },
+  []);
+
   const listDecks = useCallback(
     async (filtersParams?: FiltersParams) => {
       try {
-
         const response = await list(user.id, { ...filtersParams });
         setDecks(response);
       } catch (e) {
@@ -113,7 +119,7 @@ export const DeckProvider = ({ children }: any) => {
       try {
         const response = await get(id);
         setDeck(response);
-        return response
+        return response;
       } catch (e) {
         const error = e as IError;
         toastNotification({
@@ -162,6 +168,19 @@ export const DeckProvider = ({ children }: any) => {
     }
   };
 
+  const deleteDecks = async (id: string) => {
+    try {
+      await deleteDeck(id);
+      Router.push("/home");
+    } catch (e) {
+      const error = e as IError;
+      toastNotification({
+        type: "error",
+        message: error.response.data.message,
+      });
+    }
+  };
+
   return (
     <DeckContext.Provider
       value={{
@@ -172,6 +191,7 @@ export const DeckProvider = ({ children }: any) => {
         createDeck,
         setDeck,
         updateDeck,
+        deleteDecks,
       }}
     >
       {children}

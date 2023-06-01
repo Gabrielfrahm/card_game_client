@@ -409,3 +409,18 @@ export const ToolTipImage = styled(Image, {
     height: "250px",
   },
 });
+
+export const ButtonDelete = styled("button", {
+  width: "4.125rem",
+  height: "2rem",
+  borderRadius: "5px",
+  border: "transparent",
+  backgroundColor: "#3D3A2E",
+
+  color: "$text",
+
+  "&:hover": {
+    cursor: "pointer",
+    filter: "brightness(1.4)",
+  },
+});

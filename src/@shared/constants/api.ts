@@ -16,5 +16,6 @@ export const urls = {
     get: (id: string): string => `/decks/one/${id}`,
     create: (): string => "/decks",
     update: (id: string) => `/decks/${id}`,
+    delete: (id: string) => `/decks/${id}`,
   },
 };

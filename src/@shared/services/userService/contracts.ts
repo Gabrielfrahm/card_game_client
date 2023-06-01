@@ -20,5 +20,5 @@ export type TResponse = {
 export type TMethod = {
   create: (data: TRequest) => Promise<TResponse>;
   update(id: string, data: TRequestUpdate): Promise<void>;
-  get(id: string): Promise<TUser>;
+  get(id: string): Promise<TResponse>;
 };

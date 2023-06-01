@@ -12,7 +12,7 @@ const userServices = (): TMethod => {
     return getAPIClient().put(urls.user.update(id), data);
   }
 
-  async function get(id: string): Promise<TUser> {
+  async function get(id: string): Promise<TResponse> {
     return getAPIClient().get(urls.user.get(id));
   }
 

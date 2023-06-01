@@ -1,4 +1,5 @@
 import { styled } from "@stitches/react";
+import { CaretLeft } from "phosphor-react";
 
 export const Container = styled("div", {
   width: "100vw",
@@ -77,4 +78,13 @@ export const TextError = styled("p", {
   fontWeight: "lighter",
   fontSize: "$sm",
   textAlign: "center",
+});
+
+export const Back = styled(CaretLeft, {
+  color: "#89826F",
+  margin: "10px",
+
+  "&:hover": {
+    cursor: "pointer",
+  },
 });

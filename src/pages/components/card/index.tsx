@@ -56,7 +56,7 @@ export function Card({
   main,
   hiddenTooltip,
 }: typeProps) {
-  document.addEventListener("contextmenu", (event) => event.preventDefault());
+  // document.addEventListener("contextmenu", (event) => event.preventDefault());
 
   return (
     <>

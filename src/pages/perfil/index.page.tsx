@@ -1,5 +1,6 @@
 import { UserContext, UserProvider } from "@/context/userContext";
 import {
+  Back,
   Container,
   Content,
   Form,
@@ -19,6 +20,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useContext, useEffect } from "react";
 import { AuthContext } from "@/context/authContext";
 import { TRequestUpdate } from "@/@shared/services/userService/contracts";
+import Router from "next/router";
 
 const perfilFormSchema = z
   .object({
@@ -38,7 +40,7 @@ const perfilFormSchema = z
   })
   .refine((data) => data.password === data.passwordConfirmation, {
     message: "Passwords don't match",
-    path: ["confirm"],
+    path: ["passwordConfirmation"],
   });
 
 type PerfilFormData = z.infer<typeof perfilFormSchema>;
@@ -51,23 +53,27 @@ function Component() {
     handleSubmit,
     formState: { errors },
     setValue,
+    resetField,
   } = useForm<PerfilFormData>({
     resolver: zodResolver(perfilFormSchema),
   });
 
   const handleOnSubmit = async (data: any) => {
     await updateUser(data);
+    resetField("password");
+    resetField("passwordConfirmation");
   };
 
   useEffect(() => {
-    setValue("email", user.email);
-    setValue("nick", user.name);
+    setValue("email", user?.email);
+    setValue("nick", user?.name);
   }, [setValue, user]);
 
   return (
     <>
       <Header />
       <Container>
+        <Back size={35} onClick={() => Router.back()} />
         <Content>
           <FormContainer>
             <Title>Perfil</Title>
@@ -90,7 +96,7 @@ function Component() {
 
               <WrapperInput>
                 <LabelInput>new password</LabelInput>
-                <TextInput {...register("password")} />
+                <TextInput type="password" {...register("password")} />
                 {errors.password?.message && (
                   <TextError>{errors.password?.message}</TextError>
                 )}
@@ -98,7 +104,10 @@ function Component() {
 
               <WrapperInput>
                 <LabelInput>confirmation password</LabelInput>
-                <TextInput {...register("passwordConfirmation")} />
+                <TextInput
+                  type="password"
+                  {...register("passwordConfirmation")}
+                />
                 {errors.passwordConfirmation?.message && (
                   <TextError>{errors.passwordConfirmation?.message}</TextError>
                 )}

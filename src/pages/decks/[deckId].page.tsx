@@ -38,17 +38,19 @@ import {
   MiniCardImage,
   SumPower,
   Back,
+  ButtonDelete,
 } from "./styles";
 import TooltipCustom from "./tooltip";
-import Pagination from "../components/pagination";
+
 import TypeCard from "../components/typeCard";
+import Modal from "../components/modal";
 
 function Component(props: any) {
   const router = useRouter();
 
   const { deckId } = router.query;
 
-  const { deck, getDeck } = useContext(DeckContext);
+  const { deck, getDeck, deleteDecks } = useContext(DeckContext);
 
   const [isShow, setIsShow] = useState<boolean>(false);
   const { watch, register, resetField } = useForm();
@@ -59,6 +61,7 @@ function Component(props: any) {
   const [swordCards, setSwordCards] = useState<number>(0);
   const [mageCards, setMageCards] = useState<number>(0);
   const [rangeCards, setRangeCards] = useState<number>(0);
+  const [isModalDelete, setIsModalDelete] = useState<boolean>(false);
 
   const handleFilterCards = async (column: string, value: string) => {
     if (value) {
@@ -109,12 +112,18 @@ function Component(props: any) {
 
   return (
     <>
+      <Modal
+        functionYes={async () => await deleteDecks(deck.id)}
+        functionNo={async () => setIsModalDelete(!isModalDelete)}
+        isShow={isModalDelete}
+      />
       <Header />
       <Container>
         <Back size={35} onClick={() => router.back()} />
         <Content>
           <Title>{deck.name}</Title>
           <TypeCard mage={mageCards} sword={swordCards} range={rangeCards} />
+
           <Panel>
             <PanelLeft>
               <TitleCard>Cards</TitleCard>
@@ -216,6 +225,9 @@ function Component(props: any) {
                   <Trash color="#F1DDAB" />
                 </ClearButtonSearch>
               </SearchContainer>
+              <ButtonDelete onClick={() => setIsModalDelete(!isModalDelete)}>
+                Delete
+              </ButtonDelete>
               <CardContainer>
                 <CardWrapper>
                   {cards ? (
@@ -237,17 +249,6 @@ function Component(props: any) {
                   )}
                 </CardWrapper>
               </CardContainer>
-              {/* <Pagination
-                meta={cards?.data?.meta}
-                onClick={async (page: number) => {
-                  await listCards({
-                    column: column,
-                    filter: watch("filterValue"),
-                    page: `${page}`,
-                    per_page: "9",
-                  });
-                }}
-              /> */}
             </PanelCenter>
           </Panel>
         </Content>
